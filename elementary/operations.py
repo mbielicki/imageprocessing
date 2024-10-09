@@ -1,7 +1,10 @@
 from exceptions import ArgumentValueError, MissingArgumentError
+from cli.allowed_args import assert_only_allowed_args
 
 
 def negative(args, arr):
+    assert_only_allowed_args(args, [])
+    
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
@@ -14,9 +17,7 @@ def negative(args, arr):
                 arr[x, y, c] = new_color
 
 def brightness(args, arr):
-    height = arr.shape[0]
-    width = arr.shape[1]
-    colors = arr.shape[2]
+    assert_only_allowed_args(args, ['--strength'])
 
     try:
         strength = int(args['--strength'])
@@ -24,6 +25,11 @@ def brightness(args, arr):
         raise MissingArgumentError("No strength given.")
     except ValueError as e:
         raise ArgumentValueError("Incorrect value for strength: " + e.args[0])
+    
+
+    height = arr.shape[0]
+    width = arr.shape[1]
+    colors = arr.shape[2]
 
     for x in range(width):
         for y in range(height):
@@ -38,9 +44,7 @@ def brightness(args, arr):
                 arr[x, y, c] = new_color
 
 def contrast(args, arr):
-    height = arr.shape[0]
-    width = arr.shape[1]
-    colors = arr.shape[2]
+    assert_only_allowed_args(args, ['--strength'])
 
     try:
         strength = int(args['--strength'])
@@ -48,6 +52,11 @@ def contrast(args, arr):
         raise MissingArgumentError("No strength given.")
     except ValueError as e:
         raise ArgumentValueError("Incorrect value for strength: " + e.args[0])
+    
+    
+    height = arr.shape[0]
+    width = arr.shape[1]
+    colors = arr.shape[2]
     
     offset = 256/2 * (1 if strength < 1 else -1)
     

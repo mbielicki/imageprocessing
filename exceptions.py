@@ -6,3 +6,4 @@ class UnknownArgumentError(ArgumentError): pass
 class ArgumentValueError(ArgumentError): pass
 class MissingArgumentError(ArgumentError): pass
 class InputFileError(ArgumentError): pass
+

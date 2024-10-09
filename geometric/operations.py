@@ -1,4 +1,9 @@
+from cli.allowed_args import assert_only_allowed_args
+
+
 def hflip(args, arr):
+    assert_only_allowed_args(args, [])
+    
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
@@ -10,6 +15,8 @@ def hflip(args, arr):
             arr[y, mirror_x] = temp
 
 def paint(args, arr):
+    assert_only_allowed_args(args, [])
+    
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
