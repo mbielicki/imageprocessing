@@ -1,9 +1,17 @@
+import sys
 from PIL import Image
 import numpy as np
 
 def process_image(args, func):
-    input_file = args['--input']
-    im = Image.open(input_file)
+    try:
+        input_file = args['--input']
+        im = Image.open(input_file)
+    except KeyError:
+        print("No input file given.")
+        sys.exit()
+    except FileNotFoundError:
+        print("File not found: " + input_file)
+        sys.exit()
 
     arr = np.array(im.getdata()) 
     
@@ -18,4 +26,10 @@ def process_image(args, func):
 
     newIm = Image.fromarray(arr.astype(np.uint8))
     newIm.show() #TODO: remove
-    newIm.save(args['--output'])
+
+    try:
+        output_file = args['--output']
+    except KeyError:
+        output_file = 'output.bmp'
+        
+    newIm.save(output_file)
