@@ -14,7 +14,7 @@ def process_image(args, func):
         numColorChannels = arr.shape[1]
         arr = arr.reshape(im.size[1], im.size[0], numColorChannels)
 
-    func(args, arr, im, numColorChannels)
+    func(args, arr)
 
     newIm = Image.fromarray(arr.astype(np.uint8))
     newIm.show() #TODO: remove

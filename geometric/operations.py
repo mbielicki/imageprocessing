@@ -1,6 +1,7 @@
-def hflip(args, arr, im, numColorChannels):
-    width = arr.shape[1]
+def hflip(args, arr):
     height = arr.shape[0]
+    width = arr.shape[1]
+    colors = arr.shape[2]
     for y in range(height):
         for x in range(width // 2):
             mirror_x = width - 1 - x
@@ -8,12 +9,13 @@ def hflip(args, arr, im, numColorChannels):
             arr[y, x] = arr[y, mirror_x]
             arr[y, mirror_x] = temp
 
-def paint(args, arr, im, numColorChannels):
-    width = arr.shape[1]
+def paint(args, arr):
     height = arr.shape[0]
+    width = arr.shape[1]
+    colors = arr.shape[2]
 
     for x in range(width):
         for y in range(height):
             if y > 100 and y < 200:
-                for c in range(numColorChannels):
+                for c in range(colors):
                     arr[y, x, c] = 0
