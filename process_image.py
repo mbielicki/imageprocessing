@@ -1,17 +1,20 @@
-import sys
 from PIL import Image
 import numpy as np
+
+from exceptions import InputFileError, MissingArgumentError
 
 def process_image(args, func):
     try:
         input_file = args['--input']
-        im = Image.open(input_file)
     except KeyError:
-        print("No input file given.")
-        sys.exit()
+        raise MissingArgumentError("No input file given.")
+    
+    try:
+        im = Image.open(input_file)
     except FileNotFoundError:
-        print("File not found: " + input_file)
-        sys.exit()
+        raise InputFileError("File not found: " + input_file)
+    except PermissionError as e:
+        raise InputFileError("Permission denied: " + e.filename)
 
     arr = np.array(im.getdata()) 
     
@@ -31,5 +34,5 @@ def process_image(args, func):
         output_file = args['--output']
     except KeyError:
         output_file = 'output.bmp'
-        
+
     newIm.save(output_file)

@@ -1,3 +1,6 @@
+from exceptions import ArgumentValueError, MissingArgumentError
+
+
 def negative(args, arr):
     height = arr.shape[0]
     width = arr.shape[1]
@@ -14,8 +17,13 @@ def brightness(args, arr):
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
-    
-    strength = int(args['--strength'])
+
+    try:
+        strength = int(args['--strength'])
+    except KeyError:
+        raise MissingArgumentError("No strength given.")
+    except ValueError as e:
+        raise ArgumentValueError("Incorrect value for strength: " + e.args[0])
 
     for x in range(width):
         for y in range(height):
@@ -34,7 +42,13 @@ def contrast(args, arr):
     width = arr.shape[1]
     colors = arr.shape[2]
 
-    strength = float(args['--strength'])
+    try:
+        strength = int(args['--strength'])
+    except KeyError:
+        raise MissingArgumentError("No strength given.")
+    except ValueError as e:
+        raise ArgumentValueError("Incorrect value for strength: " + e.args[0])
+    
     offset = 256/2 * (1 if strength < 1 else -1)
     
     for x in range(width):
