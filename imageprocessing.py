@@ -1,6 +1,7 @@
 import sys
-from brightness import brightness
-from contrast import contrast
+from operations.brightness import brightness
+from operations.contrast import contrast
+from operations.process_image import process_image
 
 def args_to_dict(args):
     return dict(arg.split('=') for arg in args)
@@ -19,9 +20,12 @@ def main():
     args = args_to_dict(sys.argv[2:])
     
     if command == '--brightness':
-        brightness(args)
+        process_image(args, brightness)
     elif command == '--contrast':
-        contrast(args)
+        process_image(args, contrast)
+    elif command == '--negative':
+        pass
+        # negative(args)
     else:
         print("Unknown command: " + command)
 
