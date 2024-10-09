@@ -1,7 +1,7 @@
 import sys
-from operations.brightness import brightness
-from operations.contrast import contrast
-from operations.process_image import process_image
+from process_image import process_image
+from elementary.operations import negative, brightness, contrast
+from geometric.operations import paint, hflip
 
 def args_to_dict(args):
     return dict(arg.split('=') for arg in args)
@@ -24,8 +24,11 @@ def main():
     elif command == '--contrast':
         process_image(args, contrast)
     elif command == '--negative':
-        pass
-        # negative(args)
+        process_image(args, negative)
+    elif command == '--hflip':
+        process_image(args, hflip)
+    elif command == '--test':
+        process_image(args, paint)
     else:
         print("Unknown command: " + command)
 
