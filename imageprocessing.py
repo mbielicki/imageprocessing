@@ -1,5 +1,6 @@
 import sys
 from brightness import brightness
+from contrast import contrast
 
 def args_to_dict(args):
     return dict(arg.split('=') for arg in args)
@@ -19,6 +20,8 @@ def main():
     
     if command == '--brightness':
         brightness(args)
+    elif command == '--contrast':
+        contrast(args)
     else:
         print("Unknown command: " + command)
 
