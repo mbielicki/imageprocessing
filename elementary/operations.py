@@ -1,10 +1,11 @@
+from cli.get_arg import get_float_arg, get_int_arg
 from exceptions import ArgumentValueError, MissingArgumentError
 from cli.allowed_args import assert_only_allowed_args
 
 
 def negative(args, arr):
     assert_only_allowed_args(args, [])
-    
+
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
@@ -18,6 +19,8 @@ def negative(args, arr):
 
 def brightness(args, arr):
     assert_only_allowed_args(args, ['--strength'])
+
+    strength = get_int_arg(args, '--strength')
 
     try:
         strength = int(args['--strength'])
@@ -46,13 +49,7 @@ def brightness(args, arr):
 def contrast(args, arr):
     assert_only_allowed_args(args, ['--strength'])
 
-    try:
-        strength = int(args['--strength'])
-    except KeyError:
-        raise MissingArgumentError("No strength given.")
-    except ValueError as e:
-        raise ArgumentValueError("Incorrect value for strength: " + e.args[0])
-    
+    strength = get_float_arg(args, '--strength')
     
     height = arr.shape[0]
     width = arr.shape[1]
