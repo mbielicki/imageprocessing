@@ -3,7 +3,7 @@ import sys
 from cli.args_to_dict import args_to_dict
 from elementary.operations import brightness, contrast, negative
 from exceptions import ArgumentError, UnknownArgumentError
-from geometric.operations import hflip, paint
+from geometric.operations import hflip, dflip, vflip
 from process_image import process_image
 
 
@@ -23,7 +23,9 @@ def process_cli_args():
         process_image(args, negative)
     elif command == '--hflip':
         process_image(args, hflip)
-    elif command == '--test':
-        process_image(args, paint)
+    elif command == '--vflip':
+        process_image(args, vflip)
+    elif command == '--dflip':
+        process_image(args, dflip)
     else:
         raise UnknownArgumentError("Unknown command: " + command)
