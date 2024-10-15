@@ -3,7 +3,7 @@ import numpy as np
 
 from exceptions import InputFileError, MissingArgumentError
 
-def process_image(args, func):
+def apply_to_image(args, func):
     try:
         input_file = args['--input']
     except KeyError:
@@ -25,7 +25,7 @@ def process_image(args, func):
         numColorChannels = arr.shape[1]
         arr = arr.reshape(im.size[1], im.size[0], numColorChannels)
 
-    func(args, arr)
+    arr = func(args, arr)
 
     newIm = Image.fromarray(arr.astype(np.uint8))
     newIm.show() #TODO: remove

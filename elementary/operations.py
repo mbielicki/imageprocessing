@@ -16,6 +16,8 @@ def negative(args, arr):
 
                 new_color = arr[x, y, c] * -1 + 255
                 arr[x, y, c] = new_color
+                
+    return arr
 
 def brightness(args, arr):
     assert_only_allowed_args(args, ['--strength'])
@@ -45,6 +47,8 @@ def brightness(args, arr):
                     new_color = 0
 
                 arr[x, y, c] = new_color
+                
+    return arr
 
 def contrast(args, arr):
     assert_only_allowed_args(args, ['--strength'])
@@ -68,3 +72,5 @@ def contrast(args, arr):
                     new_color = 0
                     
                 arr[x, y, c] = new_color
+                
+    return arr

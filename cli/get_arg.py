@@ -17,3 +17,12 @@ def get_float_arg(args, arg_name):
         return float(get_arg(args, arg_name))
     except ValueError as e:
         raise ArgumentValueError(f"Incorrect value for {arg_name}: " + e.args[0])
+
+def get_positive_float_arg(args, arg_name):
+    try:
+        val = float(get_arg(args, arg_name))
+        if val <= 0:
+            raise ValueError(f"Value must be positive.")
+        return float(get_arg(args, arg_name))
+    except ValueError as e:
+        raise ArgumentValueError(f"Incorrect value for {arg_name}: " + e.args[0])

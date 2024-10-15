@@ -1,4 +1,7 @@
+import numpy as np
 from cli.allowed_args import assert_only_allowed_args
+from cli.get_arg import get_float_arg, get_positive_float_arg
+from geometric.interpolation import bilinear_interpolate
 
 
 def hflip(args, arr):
@@ -13,6 +16,8 @@ def hflip(args, arr):
             temp = arr[y, x].copy()
             arr[y, x] = arr[y, mirror_x]
             arr[y, mirror_x] = temp
+            
+    return arr
 
 
 def vflip(args, arr):
@@ -28,6 +33,8 @@ def vflip(args, arr):
             arr[y, x] = arr[mirror_y, x]
             arr[mirror_y, x] = temp
 
+    return arr
+
 def dflip(args, arr):
     assert_only_allowed_args(args, [])
     
@@ -42,16 +49,27 @@ def dflip(args, arr):
             arr[y, x] = arr[mirror_y, mirror_x]
             arr[mirror_y, mirror_x] = temp
 
+    return arr
 
-def paint(args, arr):
-    assert_only_allowed_args(args, [])
+def resize(args, arr):
+    assert_only_allowed_args(args, ['--proportion'])
+    
+    proportion = get_positive_float_arg(args, '--proportion')
     
     height = arr.shape[0]
     width = arr.shape[1]
     colors = arr.shape[2]
 
-    for x in range(width):
-        for y in range(height):
-            if y > 100 and y < 200:
-                for c in range(colors):
-                    arr[y, x, c] = 0
+    new_height = int(height * proportion)
+    new_width = int(width * proportion)
+
+    new_arr = np.zeros((new_height, new_width, colors))
+
+    for y in range(new_height):
+        for x in range(new_width):
+            x_as_old_size = x / (new_width - 1) * (width - 1)
+            y_as_old_size = y / (new_height - 1) * (height - 1)
+            new_arr[y, x] = bilinear_interpolate(arr, x_as_old_size, y_as_old_size)
+
+    return new_arr
+
