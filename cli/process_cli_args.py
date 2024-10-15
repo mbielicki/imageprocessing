@@ -1,9 +1,9 @@
 import sys
 
 from cli.args_to_dict import args_to_dict
-from elementary.operations import brightness, contrast, negative
+from img_operations.elementary import brightness, contrast, negative
 from exceptions import ArgumentError, UnknownArgumentError
-from geometric.operations import hflip, dflip, resize, vflip
+from img_operations.geometric import hflip, dflip, resize, vflip
 from apply_to_image import apply_to_image
 
 

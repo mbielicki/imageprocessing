@@ -1,7 +1,7 @@
 import numpy as np
 from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_float_arg, get_positive_float_arg
-from geometric.interpolation import bilinear_interpolate
+from img_operations.interpolation import bilinear_interpolate
 
 
 def hflip(args, arr):
