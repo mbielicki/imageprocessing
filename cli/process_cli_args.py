@@ -5,6 +5,7 @@ from img_operations.elementary import brightness, contrast, negative
 from exceptions import ArgumentError, UnknownArgumentError
 from img_operations.geometric import hflip, dflip, resize, vflip
 from apply_to_image import apply_to_image
+from img_operations.noise_removal import gmean, median
 
 
 def process_cli_args():
@@ -31,6 +32,10 @@ def process_cli_args():
         apply_to_image(args, resize)
     elif command == '--shrink':
         apply_to_image(args, resize)
+    elif command == '--median':
+        apply_to_image(args, median)
+    elif command == '--gmean':
+        apply_to_image(args, gmean)
     elif command == '--test':
         pass #TODO delete
     elif command == '--help':
