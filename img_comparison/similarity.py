@@ -3,21 +3,26 @@ import numpy as np
 
 def mse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
 
-    width = input_im.shape[1]
-    height = input_im.shape[0]
-    colors = input_im.shape[2]
+    x = ref_im.copy()
 
-    for x in range(width):
-        for y in range(height):
-            for c in range(colors):
-                input_im[y, x, c] -= ref_im[y, x, c]
+    x -= input_im
+    x **= 2
 
-    mse = np.mean(np.square(input_im))
+    mse = np.mean(x)
 
-    return f"Mean Square Error: {mse}"
+    return f"Mean Square Error: {mse:.2f}"
 
 def pmse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
-    pass
+
+    x = ref_im.copy().astype(np.float64)
+
+    x -= input_im
+    x **= 2
+    x /= np.max(ref_im) ** 2
+
+    pmse = np.mean(x)
+
+    return f"Peak Mean Square Error: {pmse:.4f}"
 
 def snr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     pass

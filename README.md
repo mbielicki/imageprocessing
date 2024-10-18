@@ -19,11 +19,12 @@ python imageprocessing.py --hflip --input=data/lenac.bmp
 
 ```shell
 python imageprocessing.py --median --input=data/lenac_normal3.bmp --output=data/output-median.bmp
-python imageprocessing.py --gmean --input=data/lenac_normal3.bmp --output=data/output.bmp
+python imageprocessing.py --gmean --input=data/lenac_normal3.bmp --output=data/output-gmean.bmp
 ```
 
 ## Similarity
 
 ```shell
 python imageprocessing.py --mse --input=data/output-median.bmp --reference=data/lenac_normal3.bmp
+python imageprocessing.py --pmse --input=data/output-median.bmp --reference=data/lenac_normal3.bmp
 ```
