@@ -2,6 +2,7 @@ import sys
 
 from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
+from cli.help_message import help_message
 
 from img_operations.elementary import brightness, contrast, negative
 from img_operations.geometric import hflip, dflip, resize, vflip
@@ -21,7 +22,7 @@ def process_cli_args():
     args = args_to_dict(sys.argv[2:])
     
     if command == '--help':
-        raise NotImplementedError("Help.")
+        print(help_message)
     
     # Elementary operations
     elif command == '--brightness':
