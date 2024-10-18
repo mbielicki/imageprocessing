@@ -18,7 +18,7 @@ def mse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
 def pmse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input', '--reference']) 
 
-    x = ref_im.copy().astype(np.float64)
+    x = ref_im.astype(np.float64)
 
     x -= input_im
     x **= 2
