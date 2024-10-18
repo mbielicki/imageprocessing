@@ -5,7 +5,7 @@ from img_operations.interpolation import bilinear_interpolate
 
 
 def hflip(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
     
     height = arr.shape[0]
     width = arr.shape[1]
@@ -21,7 +21,7 @@ def hflip(args, arr):
 
 
 def vflip(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
     
     height = arr.shape[0]
     width = arr.shape[1]
@@ -36,7 +36,7 @@ def vflip(args, arr):
     return arr
 
 def dflip(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
     
     height = arr.shape[0]
     width = arr.shape[1]
@@ -52,7 +52,7 @@ def dflip(args, arr):
     return arr
 
 def resize(args, arr):
-    assert_only_allowed_args(args, ['--proportion'])
+    assert_only_allowed_args(args, ['--proportion', '--input', '--output'])
     
     proportion = get_positive_float_arg(args, '--proportion')
     

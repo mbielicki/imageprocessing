@@ -13,7 +13,7 @@ def get_box_values(arr, x, y, c, box_width, box_height, img_width, img_height) -
     return box
 
 def median_filter(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
     
     height = arr.shape[0]
     width = arr.shape[1]
@@ -34,7 +34,7 @@ def median_filter(args, arr):
     return new_arr
 
 def gmean_filter(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
     
     height = arr.shape[0]
     width = arr.shape[1]

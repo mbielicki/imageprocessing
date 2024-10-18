@@ -4,7 +4,7 @@ from cli.allowed_args import assert_only_allowed_args
 
 
 def negative(args, arr):
-    assert_only_allowed_args(args, [])
+    assert_only_allowed_args(args, ['--input', '--output'])
 
     height = arr.shape[0]
     width = arr.shape[1]
@@ -20,7 +20,7 @@ def negative(args, arr):
     return arr
 
 def brightness(args, arr):
-    assert_only_allowed_args(args, ['--strength'])
+    assert_only_allowed_args(args, ['--strength', '--input', '--output'])
 
     strength = get_int_arg(args, '--strength')
 
@@ -51,7 +51,7 @@ def brightness(args, arr):
     return arr
 
 def contrast(args, arr):
-    assert_only_allowed_args(args, ['--strength'])
+    assert_only_allowed_args(args, ['--strength', '--input', '--output'])
 
     strength = get_float_arg(args, '--strength')
     
