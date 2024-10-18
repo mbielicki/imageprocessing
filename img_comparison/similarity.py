@@ -42,7 +42,17 @@ def snr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     return f"Signal to noise ratio: {snr:.2f} dB"
 
 def psnr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
-    pass
+    assert_only_allowed_args(args, ['--input', '--reference']) 
+
+    input_im = input_im.astype(np.float64)
+    ref_im = ref_im.astype(np.float64)
+
+    max_squared = np.max(ref_im) ** 2
+    mse = ((ref_im - input_im) ** 2).mean()
+    
+    psnr = 10 * np.log10(max_squared / mse)
+    
+    return f"Peak signal to noise ratio: {psnr:.2f} dB"
 
 def md(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     pass
