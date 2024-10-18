@@ -7,3 +7,4 @@ class ArgumentValueError(ArgumentError): pass
 class MissingArgumentError(ArgumentError): pass
 class InputFileError(ArgumentError): pass
 
+class ComparisonError(ApplicationError): pass
