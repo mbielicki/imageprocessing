@@ -1,7 +1,10 @@
 import numpy as np
 
+from cli.allowed_args import assert_only_allowed_args
+
 
 def mse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input', '--reference'])
 
     x = ref_im.copy()
 
@@ -13,6 +16,7 @@ def mse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     return f"Mean Square Error: {mse:.2f}"
 
 def pmse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input', '--reference']) 
 
     x = ref_im.copy().astype(np.float64)
 
