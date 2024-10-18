@@ -1,7 +1,6 @@
 import numpy as np
-from scipy.stats import gmean
 from cli.allowed_args import assert_only_allowed_args
-
+from utils import gmean
 
 def get_box_values(arr, x, y, c, box_width, box_height, img_width, img_height) -> list[int]:
     box = []
