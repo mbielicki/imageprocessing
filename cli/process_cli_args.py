@@ -9,7 +9,7 @@ from img_operations.apply_to_image import apply_to_image
 from img_operations.noise_removal import gmean_filter, median_filter
 
 from img_comparison.compare_images import compare_images
-from img_comparison.similarity import mse
+from img_comparison.similarity import md, mse, pmse, psnr, snr
 
 
 def process_cli_args():
@@ -20,12 +20,18 @@ def process_cli_args():
     command = sys.argv[1]
     args = args_to_dict(sys.argv[2:])
     
-    if command == '--brightness':
+    if command == '--help':
+        raise NotImplementedError("Help.")
+    
+    # Elementary operations
+    elif command == '--brightness':
         apply_to_image(args, brightness)
     elif command == '--contrast':
         apply_to_image(args, contrast)
     elif command == '--negative':
         apply_to_image(args, negative)
+
+    # Geometric operations
     elif command == '--hflip':
         apply_to_image(args, hflip)
     elif command == '--vflip':
@@ -36,16 +42,29 @@ def process_cli_args():
         apply_to_image(args, resize)
     elif command == '--shrink':
         apply_to_image(args, resize)
+
+    # Noise removal
     elif command == '--median':
         apply_to_image(args, median_filter)
     elif command == '--gmean':
         apply_to_image(args, gmean_filter)
+
+    # Image similarity
     elif command == '--mse':
         message = compare_images(args, mse)
         print(message)
-    elif command == '--test':
-        pass #TODO delete
-    elif command == '--help':
-        raise NotImplementedError("Help.")
+    elif command == '--pmse':
+        message = compare_images(args, pmse)
+        print(message)
+    elif command == '--snr':
+        message = compare_images(args, snr)
+        print(message)
+    elif command == '--psnr':
+        message = compare_images(args, psnr)
+        print(message)
+    elif command == '--md':
+        message = compare_images(args, md)
+        print(message)
+    
     else:
         raise UnknownArgumentError("Unknown command: " + command)

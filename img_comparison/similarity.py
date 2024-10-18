@@ -15,3 +15,15 @@ def mse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     mse = np.mean(np.square(input_im))
 
     return f"Mean Square Error: {mse}"
+
+def pmse(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    pass
+
+def snr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    pass
+
+def psnr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    pass
+
+def md(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
+    pass
