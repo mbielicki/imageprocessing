@@ -25,6 +25,9 @@ python imageprocessing.py --gmean --input=data/lenac_normal3.bmp --output=data/o
 ## Similarity
 
 ```shell
-python imageprocessing.py --mse --input=data/output-median.bmp --reference=data/lenac_normal3.bmp
-python imageprocessing.py --pmse --input=data/output-median.bmp --reference=data/lenac_normal3.bmp
+python imageprocessing.py --mse --input=data/output-median.bmp --reference=data/lenac.bmp
+python imageprocessing.py --pmse --input=data/output-median.bmp --reference=data/lenac.bmp
+python imageprocessing.py --snr --input=data/output-median.bmp --reference=data/lenac.bmp
+python imageprocessing.py --psnr --input=data/output-median.bmp --reference=data/lenac.bmp
+python imageprocessing.py --md --input=data/output-median.bmp --reference=data/lenac.bmp
 ```

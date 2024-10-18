@@ -55,4 +55,8 @@ def psnr(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
     return f"Peak signal to noise ratio: {psnr:.2f} dB"
 
 def md(args: dict, input_im: np.ndarray, ref_im: np.ndarray) -> str:
-    pass
+    assert_only_allowed_args(args, ['--input', '--reference']) 
+
+    md = np.max(np.abs(ref_im - input_im))
+
+    return f"Maximum difference: {md:.0f}"
