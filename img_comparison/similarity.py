@@ -1,0 +1,2 @@
+def mse():
+    pass

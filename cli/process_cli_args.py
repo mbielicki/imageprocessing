@@ -1,11 +1,15 @@
 import sys
 
-from cli.args_to_dict import args_to_dict
-from img_operations.elementary import brightness, contrast, negative
 from exceptions import ArgumentError, UnknownArgumentError
+from cli.args_to_dict import args_to_dict
+
+from img_operations.elementary import brightness, contrast, negative
 from img_operations.geometric import hflip, dflip, resize, vflip
-from apply_to_image import apply_to_image
+from img_operations.apply_to_image import apply_to_image
 from img_operations.noise_removal import gmean_filter, median_filter
+
+from img_comparison.compare_images import compare_images
+from img_comparison.similarity import mse
 
 
 def process_cli_args():
@@ -36,6 +40,9 @@ def process_cli_args():
         apply_to_image(args, median_filter)
     elif command == '--gmean':
         apply_to_image(args, gmean_filter)
+    elif command == '--mse':
+        message = compare_images(args, mse)
+        print(message)
     elif command == '--test':
         pass #TODO delete
     elif command == '--help':
