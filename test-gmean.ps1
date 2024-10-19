@@ -1,4 +1,4 @@
-$fileName = "g-normal1"
+$fileName = "g-uniform1"
 
 Write-Output "`n=== Testing noise removal for $fileName ===`n"
 
