@@ -1,6 +1,6 @@
 import numpy as np
 from cli.allowed_args import assert_only_allowed_args
-from utils import gmean
+from utils import gmean, time_it
 
 def get_box_values(arr, x, y, c, box_width, box_height, img_width, img_height) -> list[int]:
     box = []
@@ -9,8 +9,9 @@ def get_box_values(arr, x, y, c, box_width, box_height, img_width, img_height) -
             if s >= 0 and s < img_width and t >= 0 and t < img_height:
                 box.append(arr[t, s, c])
 
-    return box
+    return np.array(box)
 
+@time_it
 def median_filter(args, arr):
     assert_only_allowed_args(args, ['--input', '--output'])
     
@@ -18,8 +19,8 @@ def median_filter(args, arr):
     width = arr.shape[1]
     colors = arr.shape[2]
 
-    BOX_WIDTH = 3
-    BOX_HEIGHT = 3
+    BOX_WIDTH = 2
+    BOX_HEIGHT = BOX_WIDTH
 
     new_arr = np.zeros((height, width, colors))
 
@@ -32,6 +33,7 @@ def median_filter(args, arr):
 
     return new_arr
 
+@time_it
 def gmean_filter(args, arr):
     assert_only_allowed_args(args, ['--input', '--output'])
     
@@ -39,8 +41,8 @@ def gmean_filter(args, arr):
     width = arr.shape[1]
     colors = arr.shape[2]
 
-    BOX_WIDTH = 3
-    BOX_HEIGHT = 3
+    BOX_WIDTH = 2
+    BOX_HEIGHT = BOX_WIDTH
 
     new_arr = np.zeros((height, width, colors))
 
