@@ -7,6 +7,7 @@ from cli.help_message import help_message
 from histogram import draw_histogram
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
+from img_transformations.hpower import hpower
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
@@ -68,9 +69,11 @@ def process_cli_args():
         message = compare_images(args, md)
         print(message)
 
-    # Histogram
+    # Task 2
     elif command == '--histogram':
         transform_image(args, draw_histogram)
+    elif command == '--hpower':
+        transform_image(args, hpower)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

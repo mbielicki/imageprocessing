@@ -34,3 +34,18 @@ python imageprocessing.py --snr --input=data/lenac_normal3-median.bmp --referenc
 python imageprocessing.py --psnr --input=data/lenac_normal3-median.bmp --reference=data/lenac.bmp
 python imageprocessing.py --md --input=data/lenac_normal3-median.bmp --reference=data/lenac.bmp
 ```
+
+## Task 2
+
+### Histogram
+
+```shell
+python imageprocessing.py --histogram --input=data/lena.bmp --output=data/histogram.bmp
+```
+
+### hpower
+
+```shell
+python imageprocessing.py --hpower --input=data/lena.bmp --output=data/lena-hpower.bmp
+python imageprocessing.py --histogram --input=data/lena-hpower.bmp --output=data/hist-hpower.bmp
+```
