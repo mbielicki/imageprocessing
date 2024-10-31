@@ -4,9 +4,10 @@ from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
+from histogram import histogram
 from img_operations.elementary import brightness, contrast, negative
 from img_operations.geometric import hflip, dflip, resize, vflip
-from img_operations.apply_to_image import apply_to_image
+from img_operations.transform_image import transform_image
 from img_operations.noise_removal import gmean_filter, median_filter
 
 from img_comparison.compare_images import compare_images
@@ -26,29 +27,29 @@ def process_cli_args():
     
     # Elementary operations
     elif command == '--brightness':
-        apply_to_image(args, brightness)
+        transform_image(args, brightness)
     elif command == '--contrast':
-        apply_to_image(args, contrast)
+        transform_image(args, contrast)
     elif command == '--negative':
-        apply_to_image(args, negative)
+        transform_image(args, negative)
 
     # Geometric operations
     elif command == '--hflip':
-        apply_to_image(args, hflip)
+        transform_image(args, hflip)
     elif command == '--vflip':
-        apply_to_image(args, vflip)
+        transform_image(args, vflip)
     elif command == '--dflip':
-        apply_to_image(args, dflip)
+        transform_image(args, dflip)
     elif command == '--enlarge':
-        apply_to_image(args, resize)
+        transform_image(args, resize)
     elif command == '--shrink':
-        apply_to_image(args, resize)
+        transform_image(args, resize)
 
     # Noise removal
     elif command == '--median':
-        apply_to_image(args, median_filter)
+        transform_image(args, median_filter)
     elif command == '--gmean':
-        apply_to_image(args, gmean_filter)
+        transform_image(args, gmean_filter)
 
     # Image similarity
     elif command == '--mse':
@@ -66,6 +67,10 @@ def process_cli_args():
     elif command == '--md':
         message = compare_images(args, md)
         print(message)
+
+    # Histogram
+    elif command == '--histogram':
+        transform_image(args, histogram)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

@@ -5,7 +5,9 @@ import numpy as np
 from exceptions import MissingArgumentError
 from img_file_to_arr import img_file_to_arr
 
-def apply_to_image(args, func: Callable[[dict, np.ndarray], np.ndarray]) -> None:
+type ImageTransform = Callable[[dict, np.ndarray], np.ndarray]
+
+def transform_image(args, func: ImageTransform) -> None:
     try:
         input_file = args['--input']
     except KeyError:
