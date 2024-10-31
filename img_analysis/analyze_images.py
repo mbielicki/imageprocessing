@@ -1,7 +1,10 @@
+from typing import Callable
+import numpy as np
 from exceptions import ComparisonError, MissingArgumentError
 from img_file_to_arr import img_file_to_arr
 
-def compare_images(args, func) -> str:
+type ImageComparator = Callable[[dict, np.ndarray, np.ndarray], str]
+def compare_images(args: dict, func: ImageComparator) -> str:
     try:
         input_file = args['--input']
     except KeyError:
@@ -20,7 +23,8 @@ def compare_images(args, func) -> str:
 
     return func(args, input_im, ref_im)
 
-def analyze_images(args, func) -> str:
+type ImageAnalyzer = Callable[[dict, np.ndarray], str]
+def analyze_images(args: dict, func: ImageAnalyzer) -> str:
     try:
         input_file = args['--input']
     except KeyError:
