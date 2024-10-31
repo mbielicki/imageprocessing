@@ -2,6 +2,7 @@ from typing import Callable
 from PIL import Image
 import numpy as np
 
+from constants import DEBUG_MODE
 from exceptions import MissingArgumentError
 from img_file_to_arr import img_file_to_arr
 
@@ -25,7 +26,7 @@ def transform_image(args, func: ImageTransform) -> None:
         arr = arr.reshape((height, width))
 
     newIm = Image.fromarray(arr)
-    # newIm.show() # uncomment to see the result
+    if DEBUG_MODE: newIm.show()
 
     try:
         output_file = args['--output']

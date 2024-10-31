@@ -6,3 +6,5 @@ BLACK: int = 0
 HISTOGRAM_BG: int = 50
 HISTOGRAM_FG: int = BLACK
 HISTOGRAM_HEIGHT: int = 256
+
+DEBUG_MODE: bool = False
