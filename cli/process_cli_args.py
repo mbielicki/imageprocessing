@@ -5,13 +5,14 @@ from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
 from histogram import draw_histogram
+from img_analysis.characteristics import mean
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
-from img_analysis.compare_images import compare_images
+from img_analysis.analyze_images import compare_images, analyze_images
 from img_analysis.similarity import md, mse, pmse, psnr, snr
 
 
@@ -74,6 +75,11 @@ def process_cli_args():
         transform_image(args, draw_histogram)
     elif command == '--hpower':
         transform_image(args, hpower)
+
+    # Characteristics
+    elif command == '--mean':
+        message = analyze_images(args, mean)
+        print(message)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

@@ -20,3 +20,13 @@ def compare_images(args, func) -> str:
 
     return func(args, input_im, ref_im)
 
+def analyze_images(args, func) -> str:
+    try:
+        input_file = args['--input']
+    except KeyError:
+        raise MissingArgumentError("No input file given.")
+    
+    input_im = img_file_to_arr(input_file)
+
+    
+    return func(args, input_im)
