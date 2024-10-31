@@ -24,7 +24,7 @@ def to_grayscale(args, arr):
     if colors == 1:
         return arr
 
-    gray_arr = np.zeros((height, width, 1))
+    gray_arr = np.zeros((height, width, 1), dtype=np.uint8)
 
     for x in range(width):
         for y in range(height):
