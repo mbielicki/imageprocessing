@@ -12,7 +12,7 @@ Elementary operations:
 --brightness: Adjust the brightness of the image
     --input: Input image file
     --output: Output image file
-    --strength: Brightness adjustment value (integer)
+    --strength: Brightness adjustment value (integer, -255 to 255)
 
 --contrast: Adjust the contrast of the image
     --input: Input image file
@@ -35,12 +35,12 @@ Geometric operations:
 --enlarge: Enlarge the image
     --input: Input image file
     --output: Output image file
-    --proportion: Enlargement proportion (float)
+    --proportion: Enlargement proportion (float, > 1)
 
 --shrink: Shrink the image
     --input: Input image file
     --output: Output image file
-    --proportion: Shrinkage proportion (float)
+    --proportion: Shrinkage proportion (float, < 1)
 
 Noise removal:
 --median: Apply median filter to the image

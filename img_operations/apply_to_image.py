@@ -23,7 +23,7 @@ def apply_to_image(args, func: Callable[[dict, np.ndarray], np.ndarray]) -> None
         arr = arr.reshape((height, width))
 
     newIm = Image.fromarray(arr)
-    newIm.show() #TODO: remove
+    # newIm.show() # uncomment to see the result
 
     try:
         output_file = args['--output']
