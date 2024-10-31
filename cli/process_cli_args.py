@@ -4,11 +4,11 @@ from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
-from histogram import histogram
-from img_operations.elementary import brightness, contrast, negative
-from img_operations.geometric import hflip, dflip, resize, vflip
-from img_operations.transform_image import transform_image
-from img_operations.noise_removal import gmean_filter, median_filter
+from histogram import draw_histogram
+from img_transformations.elementary import brightness, contrast, negative
+from img_transformations.geometric import hflip, dflip, resize, vflip
+from img_transformations.transform_image import transform_image
+from img_transformations.noise_removal import gmean_filter, median_filter
 
 from img_comparison.compare_images import compare_images
 from img_comparison.similarity import md, mse, pmse, psnr, snr
@@ -70,7 +70,7 @@ def process_cli_args():
 
     # Histogram
     elif command == '--histogram':
-        transform_image(args, histogram)
+        transform_image(args, draw_histogram)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

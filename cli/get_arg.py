@@ -1,5 +1,18 @@
 from exceptions import ArgumentValueError, MissingArgumentError
 
+def get_color_arg(args, arg_name):
+    try:
+        color = args[arg_name].lower()
+    except KeyError:
+        raise MissingArgumentError(f"Missing argument: {arg_name}")
+    
+    
+    if color not in ['r', 'g', 'b']:
+        raise ArgumentValueError(f"Invalid value for {arg_name}: {color}")
+    
+    color_vals = {'r': 0, 'g': 1, 'b': 2}
+    return color_vals[color]
+
 def get_arg(args, arg_name):
     try:
         return args[arg_name]
