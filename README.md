@@ -40,12 +40,12 @@ python imageprocessing.py --md --input=data/lenac_normal3-median.bmp --reference
 ### Histogram
 
 ```shell
-python imageprocessing.py --histogram --input=data/lena.bmp --output=data/histogram.bmp
+python imageprocessing.py --histogram --input=data/lena.bmp --output=data/hist/h-lena.bmp
 ```
 
 ### hpower
 
 ```shell
-python imageprocessing.py --hpower --input=data/lena.bmp --output=data/lena-hpower.bmp
-python imageprocessing.py --histogram --input=data/lena-hpower.bmp --output=data/hist-hpower.bmp
+python imageprocessing.py --hpower --input=data/lena.bmp --output=data/hist/lena-hpower.bmp
+python imageprocessing.py --histogram --input=data/hist/lena-hpower.bmp --output=data/hist/h-lena-hpower.bmp
 ```
