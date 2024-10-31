@@ -1,7 +1,7 @@
 import numpy as np
 
 from constants import HISTOGRAM_BG, HISTOGRAM_FG, HISTOGRAM_HEIGHT, PIXEL_VALUE_RANGE
-from img_transformations.to_one_channel import to_one_channel
+from img_transformations.colors import extract_one_channel
 
 
 def get_histogram(arr):
@@ -18,7 +18,7 @@ def get_histogram(arr):
     return hist
 
 def draw_histogram(args, arr):
-    arr = to_one_channel(args, arr)
+    arr = extract_one_channel(args, arr)
 
     hist = get_histogram(arr)
     max_n_pixels = max(hist)
