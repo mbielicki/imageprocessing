@@ -1,4 +1,5 @@
 from cli.get_arg import get_float_arg, get_int_arg
+from constants import MAX_PIXEL_VALUE, PIXEL_VALUE_RANGE
 from exceptions import ArgumentValueError, MissingArgumentError
 from cli.allowed_args import assert_only_allowed_args
 
@@ -14,7 +15,7 @@ def negative(args, arr):
         for y in range(height):
             for c in range(colors):
 
-                new_color = arr[x, y, c] * -1 + 255
+                new_color = arr[x, y, c] * -1 + MAX_PIXEL_VALUE
                 arr[x, y, c] = new_color
                 
     return arr
@@ -41,8 +42,8 @@ def brightness(args, arr):
             for c in range(colors):
                 
                 new_color = arr[x, y, c] + strength
-                if new_color > 255:
-                    new_color = 255
+                if new_color > MAX_PIXEL_VALUE:
+                    new_color = MAX_PIXEL_VALUE
                 elif new_color < 0:
                     new_color = 0
 
@@ -59,15 +60,15 @@ def contrast(args, arr):
     width = arr.shape[1]
     colors = arr.shape[2]
     
-    offset = 256/2 * (1 if strength < 1 else -1)
+    offset = PIXEL_VALUE_RANGE/2 * (1 if strength < 1 else -1)
     
     for x in range(width):
         for y in range(height):
             for c in range(colors):
                 
                 new_color = (arr[x, y, c] * strength) + offset
-                if new_color > 255:
-                    new_color = 255
+                if new_color > MAX_PIXEL_VALUE:
+                    new_color = MAX_PIXEL_VALUE
                 elif new_color < 0:
                     new_color = 0
                     
