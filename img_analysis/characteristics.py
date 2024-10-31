@@ -1,18 +1,46 @@
 import numpy as np
+from cli.allowed_args import assert_only_allowed_args
 from constants import PIXEL_VALUE_RANGE
 from histogram import get_histogram
+from img_transformations.colors import to_grayscale
 
-
-def mean(args: dict, arr: np.ndarray) -> str:
+def calculate_mean(arr: np.ndarray) -> float:
     width = arr.shape[1]
     height = arr.shape[0]
-    colors = arr.shape[2]
 
     N = width * height
     L = PIXEL_VALUE_RANGE
     
     hist = get_histogram(arr)
 
-    mean = np.multiply(hist, np.arange(L), out=hist).sum() / N
+    return np.multiply(hist, np.arange(L), out=hist).sum() / N
+
+
+def mean(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+
+    mean = calculate_mean(arr)
 
     return f"Mean: {mean:.2f}"
+
+def calculate_variance(arr: np.ndarray) -> float:
+    width = arr.shape[1]
+    height = arr.shape[0]
+
+    N = width * height
+    L = PIXEL_VALUE_RANGE
+    
+    hist = get_histogram(arr)
+
+    mean = calculate_mean(arr)
+
+    return np.multiply(hist, np.power(np.arange(L) - mean, 2)).sum() / N
+
+def variance(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+
+    variance = calculate_variance(arr)
+
+    return f"Variance: {variance:.2f}"
