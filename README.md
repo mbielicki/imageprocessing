@@ -49,3 +49,9 @@ python imageprocessing.py --histogram --input=data/lena.bmp --output=data/hist/h
 python imageprocessing.py --hpower --input=data/lena.bmp --output=data/hist/lena-hpower.bmp
 python imageprocessing.py --histogram --input=data/hist/lena-hpower.bmp --output=data/hist/h-lena-hpower.bmp
 ```
+
+### Characteristics
+
+```shell
+python imageprocessing.py --mean --input=data/lena.bmp
+```
