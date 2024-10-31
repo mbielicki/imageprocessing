@@ -11,8 +11,8 @@ from img_transformations.hpower import hpower
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
-from img_comparison.compare_images import compare_images
-from img_comparison.similarity import md, mse, pmse, psnr, snr
+from img_analysis.compare_images import compare_images
+from img_analysis.similarity import md, mse, pmse, psnr, snr
 
 
 def process_cli_args():
