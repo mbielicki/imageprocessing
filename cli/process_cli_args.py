@@ -6,6 +6,7 @@ from cli.help_message import help_message
 
 from histogram import draw_histogram
 from img_analysis.characteristics import casyco, centropy, cflatco, cmean, cstdev, cvarcoi, cvarcoii, cvariance
+from img_transformations.convolution import edge_sharpening
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
@@ -71,6 +72,7 @@ def process_cli_args():
         print(message)
 
     # Task 2
+    # Histogram
     elif command == '--histogram':
         transform_image(args, draw_histogram)
     elif command == '--hpower':
@@ -101,6 +103,10 @@ def process_cli_args():
     elif command == '--centropy':
         message = analyze_images(args, centropy)
         print(message)
+
+    # Convolution
+    elif command == '--sedgesharp':
+        transform_image(args, edge_sharpening)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

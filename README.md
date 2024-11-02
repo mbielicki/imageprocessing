@@ -62,3 +62,9 @@ python imageprocessing.py --cflatco --input=data/lena.bmp
 python imageprocessing.py --cvarcoii --input=data/lena.bmp
 python imageprocessing.py --centropy --input=data/lena.bmp
 ```
+
+### Convolution
+
+```shell
+python imageprocessing.py --sedgesharp --input=data/lena.bmp --output=data/conv/lena-sharp.bmp
+```
