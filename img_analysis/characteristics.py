@@ -102,3 +102,18 @@ def cflatco(args: dict, arr: np.ndarray) -> str:
     flatco = ((m - mean) ** 4 * hist - 3).sum() / N / stdev ** 4
 
     return f"Flatness Coefficient: {flatco:.2f}"
+
+def cvarcoii(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+
+    width = arr.shape[1]
+    height = arr.shape[0]
+
+    N = width * height  
+    
+    hist = get_histogram(arr)
+
+    varcoii = (hist ** 2).sum() / N / N
+
+    return f"Variation Coefficient II: {varcoii:.2f}"

@@ -59,4 +59,5 @@ python imageprocessing.py --cstdev --input=data/lena.bmp
 python imageprocessing.py --cvarcoi --input=data/lena.bmp
 python imageprocessing.py --casyco --input=data/lena.bmp
 python imageprocessing.py --cflatco --input=data/lena.bmp
+python imageprocessing.py --cvarcoii --input=data/lena.bmp
 ```
