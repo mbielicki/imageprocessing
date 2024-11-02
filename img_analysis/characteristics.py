@@ -55,3 +55,11 @@ def cstdev(args: dict, arr: np.ndarray) -> str:
     stdev = calculate_stdev(arr)
 
     return f"Standard deviation: {stdev:.2f}"
+
+def cvarcoi(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+
+    varcoi = calculate_stdev(arr) / calculate_mean(arr)
+
+    return f"Variation Coefficient: {varcoi:.2f}"

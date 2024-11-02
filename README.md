@@ -55,4 +55,6 @@ python imageprocessing.py --histogram --input=data/hist/lena-hpower.bmp --output
 ```shell
 python imageprocessing.py --cmean --input=data/lena.bmp
 python imageprocessing.py --cvariance --input=data/lena.bmp
+python imageprocessing.py --cstdev --input=data/lena.bmp
+python imageprocessing.py --cvarcoi --input=data/lena.bmp
 ```
