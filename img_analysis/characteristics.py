@@ -78,8 +78,9 @@ def casyco(args: dict, arr: np.ndarray) -> str:
 
     mean = calculate_mean(arr)
     stdev = calculate_stdev(arr)
+    m = np.arange(L)
 
-    asyco = np.multiply(hist, np.power(np.arange(L) - mean, 3)).sum() / N / np.power(stdev, 3)
+    asyco = ((m - mean) ** 3 * hist).sum() / N / stdev ** 3
 
     return f"Asymmetry Coefficient: {asyco:.2f}"
 
