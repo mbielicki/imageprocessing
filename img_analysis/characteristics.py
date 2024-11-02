@@ -117,3 +117,19 @@ def cvarcoii(args: dict, arr: np.ndarray) -> str:
     varcoii = (hist ** 2).sum() / N / N
 
     return f"Variation Coefficient II: {varcoii:.2f}"
+
+def centropy(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+    
+    width = arr.shape[1]
+    height = arr.shape[0]
+
+    N = width * height  
+    
+    hist = get_histogram(arr)
+    hist_no_zeros = hist[hist > 0]
+
+    entropy = - (hist_no_zeros * np.log2(hist_no_zeros / N)).sum() / N
+
+    return f"Information source entropy: {entropy:.2f}"

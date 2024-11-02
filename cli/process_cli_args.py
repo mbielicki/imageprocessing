@@ -5,7 +5,7 @@ from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
 from histogram import draw_histogram
-from img_analysis.characteristics import casyco, cflatco, cmean, cstdev, cvarcoi, cvarcoii, cvariance
+from img_analysis.characteristics import casyco, centropy, cflatco, cmean, cstdev, cvarcoi, cvarcoii, cvariance
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
@@ -97,6 +97,9 @@ def process_cli_args():
         print(message)
     elif command == '--cvarcoii':
         message = analyze_images(args, cvarcoii)
+        print(message)
+    elif command == '--centropy':
+        message = analyze_images(args, centropy)
         print(message)
     
     else:
