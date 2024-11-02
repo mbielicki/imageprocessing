@@ -54,4 +54,5 @@ python imageprocessing.py --histogram --input=data/hist/lena-hpower.bmp --output
 
 ```shell
 python imageprocessing.py --mean --input=data/lena.bmp
+python imageprocessing.py --variance --input=data/lena.bmp
 ```
