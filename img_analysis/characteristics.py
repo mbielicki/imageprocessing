@@ -62,7 +62,7 @@ def cvarcoi(args: dict, arr: np.ndarray) -> str:
 
     varcoi = calculate_stdev(arr) / calculate_mean(arr)
 
-    return f"Variation Coefficient: {varcoi:.2f}"
+    return f"Variation Coefficient I: {varcoi:.2f}"
 
 def casyco(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
