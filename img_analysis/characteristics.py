@@ -44,3 +44,14 @@ def cvariance(args: dict, arr: np.ndarray) -> str:
     variance = calculate_variance(arr)
 
     return f"Variance: {variance:.2f}"
+
+def calculate_stdev(arr: np.ndarray) -> float:
+    return np.sqrt(calculate_variance(arr))
+
+def cstdev(args: dict, arr: np.ndarray) -> str:
+    assert_only_allowed_args(args, ['--input'])
+    arr = to_grayscale(args, arr)
+
+    stdev = calculate_stdev(arr)
+
+    return f"Standard deviation: {stdev:.2f}"
