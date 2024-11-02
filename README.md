@@ -66,5 +66,5 @@ python imageprocessing.py --centropy --input=data/lena.bmp
 ### Convolution
 
 ```shell
-python imageprocessing.py --sedgesharp --input=data/lena.bmp --output=data/conv/lena-sharp.bmp
+python imageprocessing.py --sedgesharp --input=data/lena.bmp --output=data/conv/lena-sharp.bmp --kernel=2
 ```
