@@ -16,7 +16,7 @@ def calculate_mean(arr: np.ndarray) -> float:
     return np.multiply(hist, np.arange(L), out=hist).sum() / N
 
 
-def mean(args: dict, arr: np.ndarray) -> str:
+def cmean(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
     arr = to_grayscale(args, arr)
 
@@ -37,7 +37,7 @@ def calculate_variance(arr: np.ndarray) -> float:
 
     return np.multiply(hist, np.power(np.arange(L) - mean, 2)).sum() / N
 
-def variance(args: dict, arr: np.ndarray) -> str:
+def cvariance(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
     arr = to_grayscale(args, arr)
 
