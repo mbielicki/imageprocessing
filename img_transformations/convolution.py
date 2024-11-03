@@ -78,3 +78,43 @@ def convolution(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     g = g.T
 
     return g
+
+def orosenfeld(args: dict, arr: np.ndarray) -> np.ndarray:
+    assert_only_allowed_args(args, ['--input', '--output', '--P'])
+
+    P = get_int_arg(args, '--P', allowed=[1, 2, 4, 8, 16], default=1)
+
+    colors = arr.shape[2]
+    
+    for c in range(colors):
+        arr[:, :, c] = calculate_rosenfeld(arr[:, :, c], P)
+
+    return arr
+
+def calculate_rosenfeld(arr: np.ndarray[np.uint8, np.uint8], P) -> np.ndarray:
+    # Assumes one color
+    # Rosenfeld operator:
+    # gP(n,m) = 1/P * [x(n+P−1,m) + x(n+P−2,m) + … + x(n,m) − x(n−1,m) − x(n−2,m) − … − x(n−P,m)],
+    # where P = 1,2,4,8,16,….
+
+    height = arr.shape[0]
+    width = arr.shape[1]
+
+    x = arr.T
+    g = x.copy()
+
+    for n in range(P, width - P + 1):
+        for m in range(height):
+            sum = 0
+
+            for n_shift in range(-P, P):
+                if n_shift >= 0:
+                    sum += x[n + n_shift, m]
+                else:
+                    sum -= x[n + n_shift, m]
+
+            g[n, m] = sum / P
+
+    g = g.T
+
+    return g

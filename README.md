@@ -67,4 +67,5 @@ python imageprocessing.py --centropy --input=data/lena.bmp
 
 ```shell
 python imageprocessing.py --sedgesharp --input=data/lena.bmp --output=data/conv/lena-sharp.bmp --kernel=2
+python imageprocessing.py --orosenfeld --input=data/lena.bmp --output=data/conv/lena-rosenfeld.bmp --P=2
 ```

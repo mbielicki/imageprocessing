@@ -39,7 +39,7 @@ def get_arg(args, arg_name, default=None):
         
         raise MissingArgumentError(f"No {arg_name} given.")
 
-def get_int_arg(args, arg_name, range=None, default=None):
+def get_int_arg(args, arg_name, range=None, default=None, allowed=None):
     try:
         arg =  int(get_arg(args, arg_name, default))
     except ValueError as e:
@@ -51,6 +51,10 @@ def get_int_arg(args, arg_name, range=None, default=None):
             raise ArgumentValueError(f"{arg_name} must be >= {min_val}")
         if arg > max_val:
             raise ArgumentValueError(f"{arg_name} must be <= {max_val}")
+        
+    if allowed is not None:
+        if arg not in allowed:
+            raise ArgumentValueError(f"{arg_name} must be one of {allowed}")
 
     return arg
 
