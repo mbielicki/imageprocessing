@@ -71,4 +71,49 @@ Image similarity:
 --md: Calculate maximum difference between two images
     --input: Input image file
     --reference: Reference image file
+    
+Histogram:
+--histogram: Show the histogram of the image
+    --input: Input image file
+    --output: Histogram file
+
+--hpower: Apply the Power 2/3 final probability density function
+    --input: Input image file
+    --output: Output image file
+
+Characteristics:
+--cmean: Calculate the mean of the image
+    --input: Input image file
+
+--cvariance: Calculate the variance of the image
+    --input: Input image file
+
+--cstdev: Calculate the standard deviation of the image
+    --input: Input image file
+
+--cvarcoi: Calculate the variance coefficient of the image
+    --input: Input image file
+
+--casyco: Calculate the asymmetry coefficient of the image
+    --input: Input image file
+
+--cflatco: Calculate the flatness coefficient of the image
+    --input: Input image file
+
+--cvarcoii: Calculate the variance coefficient II of the image
+    --input: Input image file
+
+--centropy: Calculate the entropy of the image
+    --input: Input image file
+
+Convolution:
+--sedgesharp: Apply the edge sharp filter to the image
+    --input: Input image file
+    --output: Output image file
+    --kernel: Kernel type - allowed values: (0: optimized, 1, 2)
+
+--orosenfeld: Apply the Rosenfeld filter to the image
+    --input: Input image file
+    --output: Output image file
+    --P: P value - allowed values: (1, 2, 4, 8, 16)
 """
