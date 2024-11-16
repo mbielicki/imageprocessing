@@ -3,6 +3,8 @@ from functools import wraps
 
 import numpy as np
 
+from constants import MAX_PIXEL_VALUE
+
 def time_it(func):
     @wraps(func)
     def wrapper(*args,**kwargs):
@@ -21,3 +23,10 @@ def gmean(values: np.ndarray):
         result *= values[i] ** (1 / len(values))
 
     return result
+
+def clip(x: int, max: int = MAX_PIXEL_VALUE, min: int = 0) -> int:
+    if x >= max:
+        return max
+    if x <= min:
+        return min
+    return x 

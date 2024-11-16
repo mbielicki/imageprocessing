@@ -2,7 +2,7 @@ import numpy as np
 
 from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_int_arg
-from utils import time_it
+from utils import clip, time_it
 
 
 edge_sharpening_kernels = [
@@ -55,7 +55,8 @@ def edge_sharpening_optimized_convolution(arr: np.ndarray) -> np.ndarray:
 
     for p in range(M, width - M):
         for q in range(M, height - M):
-            g[p, q] = 5 * x[p, q] - x[p - 1, q] - x[p + 1, q] - x[p, q - 1] - x[p, q + 1]
+            val = 5 * x[p, q] - x[p - 1, q] - x[p + 1, q] - x[p, q - 1] - x[p, q + 1]
+            g[p, q] = clip(val)
 
     g = g.T
 
@@ -73,7 +74,8 @@ def convolution(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
 
     for p in range(M, width - M):
         for q in range(M, height - M):
-            g[p, q] = (kernel * x[p - M : p + M + 1, q - M : q + M + 1]).sum()
+            val = (kernel * x[p - M : p + M + 1, q - M : q + M + 1]).sum()
+            g[p, q] = clip(val)
 
     g = g.T
 
