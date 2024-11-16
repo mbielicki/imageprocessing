@@ -29,6 +29,8 @@ def draw_histogram(args, arr):
     for x in range(PIXEL_VALUE_RANGE):
         n_such_pixels = hist[x]
         bar_height = n_such_pixels * HISTOGRAM_HEIGHT // max_n_pixels
+        # bar_height = np.clip(int(n_such_pixels * HISTOGRAM_HEIGHT // (512 * 512 * 0.03)), 0, HISTOGRAM_HEIGHT)
+        
         hist_im[:bar_height, x] = HISTOGRAM_FG
 
     hist_im = hist_im[::-1]
