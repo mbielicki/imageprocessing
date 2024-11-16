@@ -3,14 +3,15 @@ from functools import wraps
 
 import numpy as np
 
-from constants import MAX_PIXEL_VALUE
+from constants import DEBUG_MODE, MAX_PIXEL_VALUE
 
 def time_it(func):
     @wraps(func)
     def wrapper(*args,**kwargs):
         start = time.time()
         result = func(*args,**kwargs)
-        print(f'time taken by {func.__name__} is {time.time()-start:.3f} s')
+        if DEBUG_MODE:
+            print(f'time taken by {func.__name__} is {time.time()-start:.3f} s')
 
         return result
     return wrapper

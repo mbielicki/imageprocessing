@@ -1,4 +1,4 @@
-$Images = "lenac"
+$Images = "lena", "camera", "pentagon"
 
 foreach ($Image in $Images) {
     for ($Kernel = 0; $Kernel -lt 3; $Kernel++) {
