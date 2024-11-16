@@ -8,7 +8,7 @@ def time_it(func):
     def wrapper(*args,**kwargs):
         start = time.time()
         result = func(*args,**kwargs)
-        print(f'time taken by {func.__name__} is {time.time()-start:.2f} s')
+        print(f'time taken by {func.__name__} is {time.time()-start:.3f} s')
 
         return result
     return wrapper
