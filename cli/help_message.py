@@ -1,3 +1,8 @@
+check_for_help = """
+Check for help:
+    python imageprocessing.py --help
+"""
+
 help_message = """
 Image processing CLI:
     python imageprocessing.py --command [--argument=value [...]]
