@@ -24,10 +24,3 @@ def gmean(values: np.ndarray):
         result *= values[i] ** (1 / len(values))
 
     return result
-
-def clip(x: int, max: int = MAX_PIXEL_VALUE, min: int = 0) -> int:
-    if x >= max:
-        return max
-    if x <= min:
-        return min
-    return x 

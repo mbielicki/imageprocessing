@@ -2,7 +2,7 @@ from typing import Callable
 from PIL import Image
 import numpy as np
 
-from constants import DEBUG_MODE
+from constants import DEBUG_MODE, MAX_PIXEL_VALUE
 from exceptions import MissingArgumentError
 from img_file_to_arr import img_file_to_arr
 
@@ -17,6 +17,7 @@ def transform_image(args, func: ImageTransform) -> None:
     arr = img_file_to_arr(input_file)
 
     arr = func(args, arr)
+    arr = arr.clip(0, MAX_PIXEL_VALUE)
     arr = arr.astype(np.uint8)
 
     height = arr.shape[0]

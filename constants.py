@@ -7,4 +7,4 @@ HISTOGRAM_BG: int = WHITE
 HISTOGRAM_FG: int = 150
 HISTOGRAM_HEIGHT: int = 256
 
-DEBUG_MODE: bool = False
+DEBUG_MODE: bool = True
