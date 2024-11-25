@@ -22,7 +22,7 @@ Elementary operations:
 --contrast: Adjust the contrast of the image
     --input: Input image file
     --output: Output image file
-    --strength: Contrast adjustment value (float)
+    --strength: Contrast adjustment value (float, 0 to 1 - lower contrast, > 1 - higher contrast)
 
 Geometric operations:
 --hflip: Flip the image horizontally
