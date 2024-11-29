@@ -4,7 +4,6 @@ from cli.get_arg import get_color_arg
 
 
 def extract_one_channel(args, arr):
-    assert_only_allowed_args(args, ['--input', '--output', '--channel'])
 
     colors = arr.shape[2]
 
@@ -16,7 +15,6 @@ def extract_one_channel(args, arr):
     return arr[:, :, channel]
 
 def to_grayscale(args, arr):
-    assert_only_allowed_args(args, ['--input', '--output'])
     width = arr.shape[1]
     height = arr.shape[0]
     colors = arr.shape[2]

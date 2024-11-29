@@ -1,5 +1,6 @@
 import numpy as np
 
+from cli.allowed_args import assert_only_allowed_args
 from constants import HISTOGRAM_BG, HISTOGRAM_FG, HISTOGRAM_HEIGHT, PIXEL_VALUE_RANGE
 from img_transformations.colors import extract_one_channel
 
@@ -18,6 +19,7 @@ def get_histogram(arr):
     return hist
 
 def draw_histogram(args, arr):
+    assert_only_allowed_args(args, ['--input', '--output', '--channel'])
     arr = extract_one_channel(args, arr)
 
     hist = get_histogram(arr)
