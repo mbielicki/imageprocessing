@@ -10,7 +10,7 @@ from img_transformations.convolution import edge_sharpening, orosenfeld
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
-from img_transformations.morphological import dilation, erosion
+from img_transformations.morphological import closing, dilation, erosion, opening
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
@@ -117,6 +117,10 @@ def process_cli_args():
         transform_image(args, dilation)
     elif command == '--erosion':
         transform_image(args, erosion)
+    elif command == '--opening':
+        transform_image(args, opening)
+    elif command == '--closing':
+        transform_image(args, closing)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

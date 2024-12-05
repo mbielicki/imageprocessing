@@ -51,3 +51,9 @@ def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
     new_arr = np.array([equals_kernel(win, kernel) for win in windows]).reshape(orig_shape) * MAX_PIXEL_VALUE
 
     return new_arr[:, :, None]
+
+def opening(args: dict, arr: np.ndarray) -> np.ndarray:
+    return dilation(args, erosion(args, arr))
+
+def closing(args: dict, arr: np.ndarray) -> np.ndarray:
+    return erosion(args, dilation(args, arr))
