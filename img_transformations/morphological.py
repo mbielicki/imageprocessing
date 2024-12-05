@@ -12,7 +12,7 @@ def dilation(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--element'])
     A = bw_to_set(arr)
 
-    P = np.array([a + b for a in A for b in iii])
+    P = (A[:, None] + iii).reshape((-1, A.shape[1])) 
 
     return set_to_bw(P, arr.shape)
 
