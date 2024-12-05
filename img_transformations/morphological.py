@@ -17,38 +17,38 @@ v   = np.array([[-1, -1, -1],
                 [-1,  1, -1]]) 
 
 def dilation(args: dict, arr: np.ndarray) -> np.ndarray:
-    assert_only_allowed_args(args, ['--input', '--output', '--kernel'])
+    assert_only_allowed_args(args, ['--input', '--output', '--se'])
     A = bw_to_indices(arr)
 
     P = (A[:, None] + iii_v).reshape((-1, A.shape[1])) 
 
     return indices_to_bw(P, arr.shape)
 
-def equals_kernel(window: np.ndarray, kernel: np.ndarray) -> bool:
+def equals_se(window: np.ndarray, se: np.ndarray) -> bool:
     def eq(w: int, k: int) -> bool:
         return k < 0 or (w == k) 
     
     vec_eq = np.frompyfunc(eq, 2, 1)
     
-    return (vec_eq(window, kernel)).all()
+    return (vec_eq(window, se)).all()
 @time_it
 def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
-    assert_only_allowed_args(args, ['--input', '--output', '--kernel'])
+    assert_only_allowed_args(args, ['--input', '--output', '--se'])
     arr = arr[:, :, 0]
     
     orig_shape = arr.shape
-    kernel_size = 3
-    pad_width = kernel_size // 2
-    kernel = iii * MAX_PIXEL_VALUE
+    se_size = 3
+    pad_width = se_size // 2
+    se = iii * MAX_PIXEL_VALUE
 
     padded = np.pad(array=arr, pad_width=pad_width, mode='constant')
 
     windows = np.array([
-        padded[i:(i + kernel_size), j:(j + kernel_size)]
+        padded[i:(i + se_size), j:(j + se_size)]
         for i in range(orig_shape[0]) for j in range(orig_shape[1])
     ])
 
-    new_arr = np.array([equals_kernel(win, kernel) for win in windows]).reshape(orig_shape) * MAX_PIXEL_VALUE
+    new_arr = np.array([equals_se(win, se) for win in windows]).reshape(orig_shape) * MAX_PIXEL_VALUE
 
     return new_arr[:, :, None]
 
