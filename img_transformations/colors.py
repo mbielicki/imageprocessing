@@ -31,7 +31,7 @@ def to_grayscale(args, arr):
         
 
 def as_binary(arr: np.ndarray) -> np.ndarray:
-    return np.where(arr > 0, 1, 0).astype(np.uint8)[:, :, 0]
+    return (arr > 0)[:, :, 0]
 
 def as_bw(arr: np.ndarray) -> np.ndarray:
     return np.where(arr > 0, 255, 0).reshape(arr.shape[0], arr.shape[1], 1)
