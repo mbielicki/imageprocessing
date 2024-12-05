@@ -1,7 +1,5 @@
 import numpy as np
-from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_color_arg
-from utils import time_it
 
 
 def extract_one_channel(args, arr):
@@ -69,7 +67,6 @@ def remove_outside_indices(indices: np.ndarray, shape: tuple):
     # Convert back to set
     return valid_indices
 
-@time_it
 def set_to_bw(set: np.ndarray, shape: tuple) -> np.ndarray:
     arr = np.zeros(shape, dtype=np.uint8)
 
