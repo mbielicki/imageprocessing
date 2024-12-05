@@ -10,6 +10,7 @@ from img_transformations.convolution import edge_sharpening, orosenfeld
 from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
+from img_transformations.morphological import dilation
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
@@ -110,6 +111,10 @@ def process_cli_args():
 
     elif command == '--orosenfeld':
         transform_image(args, orosenfeld)
+
+    # Task 3
+    elif command == '--dilation':
+        transform_image(args, dilation)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)
