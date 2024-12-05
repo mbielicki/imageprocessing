@@ -23,14 +23,23 @@ def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--element'])
     A = bw_to_set(arr)
 
-    i_to_delete = []
-    for i, p in enumerate(A):
-        for b in iii:
-            if not vector_in_set(p + b, A):
-                i_to_delete.append(i)
-                break
+    # i_to_delete = []
+    # for i, p in enumerate(A):
+    #     for b in iii:
+    #         if not vector_in_set(p + b, A):
+    #             i_to_delete.append(i)
+    #             break
                 
-    P = np.delete(A, i_to_delete, axis=0)
+    # P = np.delete(A, i_to_delete, axis=0)
+
+    
+    # mask = [np.all([vector_in_set(p + b, A) for b in iii]) for p in A]
+    mask = [
+        np.all([
+            np.any(np.all(p + b == A, axis=1))
+            for b in iii]) for p in A
+        ]   
+    P = A[mask]
 
 
     return set_to_bw(P, arr.shape)
