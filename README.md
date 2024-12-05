@@ -69,3 +69,10 @@ python imageprocessing.py --centropy --input=data/lena.bmp
 python imageprocessing.py --sedgesharp --input=data/lena.bmp --output=data/conv/lena-sharp.bmp --kernel=2
 python imageprocessing.py --orosenfeld --input=data/lena.bmp --output=data/conv/lena-rosenfeld.bmp --P=2
 ```
+
+## Task 3
+
+```shell
+py imageprocessing.py --dilation --input=data/lenabw.bmp --output=data/morphological/dilation.bmp
+py imageprocessing.py --erosion --input=data/lenabw.bmp --output=data/morphological/erosion.bmp
+```
