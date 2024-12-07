@@ -1,5 +1,6 @@
 import numpy as np
 from cli.get_arg import get_color_arg
+from constants import MAX_PIXEL_VALUE
 
 
 def extract_one_channel(args, arr):
@@ -34,10 +35,10 @@ def as_binary(arr: np.ndarray) -> np.ndarray:
     return (arr > 0)[:, :, 0]
 
 def as_bw(arr: np.ndarray) -> np.ndarray:
-    return np.where(arr > 0, 255, 0).reshape(arr.shape[0], arr.shape[1], 1)
+    return np.where(arr > 0, MAX_PIXEL_VALUE, 0)[:, :, None]
 
 def bw_to_indices(arr: np.ndarray) -> np.ndarray:
-    return np.transpose(np.nonzero(arr == 255))
+    return np.transpose(np.nonzero(arr == 1))
 
 def remove_outside_indices(indices: np.ndarray, shape: tuple):
     """
@@ -66,12 +67,13 @@ def remove_outside_indices(indices: np.ndarray, shape: tuple):
     # Convert back to set
     return valid_indices
 
-def indices_to_bw(set: np.ndarray, shape: tuple) -> np.ndarray:
-    arr = np.zeros(shape, dtype=np.uint8)
+def indices_to_bw(set: np.ndarray, shape: tuple, offset: tuple = (0, 0)) -> np.ndarray:
+    set += offset
 
     set = remove_outside_indices(set, shape)
     indices = tuple(set.T)
 
-    arr[indices] = 255
+    arr = np.zeros(shape, dtype=np.bool)
+    arr[indices] = 1
 
     return arr
