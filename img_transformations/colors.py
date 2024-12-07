@@ -35,7 +35,7 @@ def as_binary(arr: np.ndarray) -> np.ndarray:
     return (arr > 0)[:, :, 0]
 
 def as_bw(arr: np.ndarray) -> np.ndarray:
-    return np.where(arr > 0, MAX_PIXEL_VALUE, 0)[:, :, None]
+    return arr[:, :, None] * MAX_PIXEL_VALUE
 
 def bw_to_indices(arr: np.ndarray) -> np.ndarray:
     return np.transpose(np.nonzero(arr == 1))
@@ -68,7 +68,7 @@ def remove_outside_indices(indices: np.ndarray, shape: tuple):
     return valid_indices
 
 def indices_to_bw(set: np.ndarray, shape: tuple, offset: tuple = (0, 0)) -> np.ndarray:
-    set += offset
+    set -= offset
 
     set = remove_outside_indices(set, shape)
     indices = tuple(set.T)

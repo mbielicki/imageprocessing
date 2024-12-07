@@ -27,7 +27,7 @@ def transform_image(args, func: ImageTransform) -> None:
         arr = arr.reshape((height, width))
 
     newIm = Image.fromarray(arr)
-    if DEBUG_MODE: newIm.show()
+    # if DEBUG_MODE: newIm.show()
 
     try:
         output_file = args['--output']

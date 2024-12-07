@@ -74,9 +74,11 @@ python imageprocessing.py --orosenfeld --input=data/lena.bmp --output=data/conv/
 
 ```shell
 py imageprocessing.py --dilation --input=data/lenabw.bmp --output=data/morphological/dilation.bmp
+py imageprocessing.py --dilation --input=data/morphological/test.bmp --output=data/morphological/dilation.bmp
 py imageprocessing.py --erosion --input=data/lenabw.bmp --output=data/morphological/erosion.bmp
 py imageprocessing.py --erosion --input=data/morphological/test.bmp --output=data/morphological/erosion.bmp
 py imageprocessing.py --opening --input=data/lenabw.bmp --output=data/morphological/opening.bmp
 py imageprocessing.py --closing --input=data/lenabw.bmp --output=data/morphological/closing.bmp
 py imageprocessing.py --hmt --input=data/morphological/test.bmp --output=data/morphological/hmt.bmp
+py imageprocessing.py --hmt --input=data/lenabw.bmp --output=data/morphological/hmt.bmp
 ```
