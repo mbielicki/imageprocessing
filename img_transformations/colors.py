@@ -37,7 +37,6 @@ def as_bw(arr: np.ndarray) -> np.ndarray:
     return np.where(arr > 0, 255, 0).reshape(arr.shape[0], arr.shape[1], 1)
 
 def bw_to_indices(arr: np.ndarray) -> np.ndarray:
-    arr = arr[:, :, 0]
     return np.transpose(np.nonzero(arr == 255))
 
 def remove_outside_indices(indices: np.ndarray, shape: tuple):

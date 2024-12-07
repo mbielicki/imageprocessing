@@ -5,12 +5,20 @@ from constants import MAX_PIXEL_VALUE
 from img_transformations.colors import as_binary, bw_to_indices, indices_to_bw
 from utils import time_it
 
+import seaborn as sns # TODO remove
+import matplotlib.pyplot as plt
+
 iii_v = product([-1, 0, 1], [-1, 0, 1])
 iii_v = np.array(list(iii_v))
 
+# -1 is ignored
 iii = np.array([[1, 1, 1],
                 [1, 1, 1],
                 [1, 1, 1]]) 
+
+plus_se = np.array([[-1, 1, -1],
+                [ 1, 1,  1],
+                [-1, 1, -1]]) 
 
 v   = np.array([[-1, -1, -1],
                 [-1,  1,  1],
@@ -20,13 +28,26 @@ xii = np.array([[0,   0,   0],
                 [-1,  1,  -1],
                 [1,   1,   1]])
 
+lse = np.array([[-1, 1, -1],
+                [0, 1, -1],
+                [1, 1, -1]]) # TODO make se class with center field
+
+
 def dilation(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
+    arr = arr[:, :, 0]
     A = bw_to_indices(arr)
 
     P = (A[:, None] + iii_v).reshape((-1, A.shape[1])) 
 
     return indices_to_bw(P, arr.shape)
+
+def dilate (A: np.ndarray, B: np.ndarray) -> np.ndarray:
+    A = bw_to_indices(A)
+    B = bw_to_indices(B)
+    P = (A[:, None] + B).reshape((-1, A.shape[1]))
+
+    return indices_to_bw(P, A.shape)
 
 def equals_se(window: np.ndarray, se: np.ndarray) -> bool:
     def eq(w: int, k: int) -> bool:
@@ -39,7 +60,7 @@ def equals_se(window: np.ndarray, se: np.ndarray) -> bool:
 def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
     A = as_binary(arr)
-    B = iii
+    B = plus_se
 
     P = erode(A, B) * MAX_PIXEL_VALUE
 
@@ -62,6 +83,7 @@ def erode(A: np.ndarray, B: np.ndarray) -> np.ndarray:
 
     return new_arr
 
+
 def opening(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
     return dilation(args, erosion(args, arr))
@@ -70,13 +92,11 @@ def closing(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
     return erosion(args, dilation(args, arr))
 
+@time_it
 def hmt(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
-    A = arr.astype(bool)
-    A_c = arr == 0
-    B1 = xii == 1
-    B2 = xii == 0
+    A = as_binary(arr)
+    B = lse
+    P = erode(A, B)
 
-    P = erode()
-
-    return indices_to_bw(P, arr.shape)
+    return P[:, :, None] * MAX_PIXEL_VALUE
