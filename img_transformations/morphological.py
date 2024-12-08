@@ -1,5 +1,6 @@
 import numpy as np
 from cli.allowed_args import assert_only_allowed_args
+from cli.get_arg import get_point_arg
 from constants import DEBUG_MODE, MAX_PIXEL_VALUE
 from img_transformations.colors import as_binary, as_bw, bw_to_indices, indices_to_bw
 from utils import time_it
@@ -22,7 +23,6 @@ def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
     B = se.j
 
     P = erode(A, B)
-    if DEBUG_MODE: plot_imgs(A, B, P)
 
     return P[:, :, None] * MAX_PIXEL_VALUE
 
@@ -48,6 +48,33 @@ def hmt(args: dict, arr: np.ndarray) -> np.ndarray:
 
     return P[:, :, None] * MAX_PIXEL_VALUE
 
+def points_in_set(points: np.ndarray, set: np.ndarray) -> np.ndarray:
+    return (points[:, None, :] == set).all(axis=2).any(axis=1)
+
+def sets_equal(A: np.ndarray, B: np.ndarray) -> bool:
+    m = (A[:, None, :] == B).all(axis=2)
+    return m.any(axis=1).all() and m.any(axis=0).all()
+
+def m3(args: dict, arr: np.ndarray) -> np.ndarray:
+    assert_only_allowed_args(args, ['--input', '--output', '--se', '--p'])
+    A = as_binary(arr)
+    shape = A.shape
+    Ai = bw_to_indices(A)
+    B = se.iii
+    p = get_point_arg(args, '--p', default='0,0', range=((0, 0), shape))
+    X = np.array([p])
+    
+    while True:
+        dilated_X = dilate_set(X, B)
+        Xk = dilated_X[points_in_set(dilated_X, Ai)]
+        if sets_equal(Xk, X): break
+        X = Xk
+
+    return indices_to_bw(X, shape)[:, :, None] * MAX_PIXEL_VALUE
+
+def dilate_set(Ai: np.ndarray, B: se.StructuralElement) -> np.ndarray:
+    dilated = (Ai[:, None] + B.indices).reshape((-1, Ai.shape[1]))
+    return np.unique(dilated, axis=0)
 
 def dilate(A: np.ndarray, B: se.StructuralElement, pad_val: int = 0) -> np.ndarray:
     shape = A.shape
@@ -55,7 +82,7 @@ def dilate(A: np.ndarray, B: se.StructuralElement, pad_val: int = 0) -> np.ndarr
     A = np.pad(A, pad_width=pad_width, mode='constant', constant_values=pad_val)
     
     Ai = bw_to_indices(A)
-    P = (Ai[:, None] + B.indices).reshape((-1, Ai.shape[1]))
+    P = dilate_set(Ai, B)
 
     return indices_to_bw(P, shape, offset=(pad_width, pad_width))
 

@@ -38,6 +38,25 @@ def get_arg(args, arg_name, default=None):
             return default
         
         raise MissingArgumentError(f"No {arg_name} given.")
+    
+def get_point_arg(args, arg_name, default=None, range=None):
+    arg = get_arg(args, arg_name, default)
+    try:
+        x, y = arg.split(',')
+        x = int(x)
+        y = int(y)
+    except ValueError as e:
+        raise ArgumentValueError(f"Incorrect value for {arg_name}: " + e.args[0])
+    
+    if range is not None:
+        (min_x, min_y), (max_x, max_y) = range
+        if not in_range(x, (min_x, max_x)) or not in_range(y, (min_y, max_y)):
+            raise ArgumentValueError(f"{arg_name} must be in range {range}")
+        
+    return x, y
+
+
+    
 
 def get_int_arg(args, arg_name, range=None, default=None, allowed=None):
     try:

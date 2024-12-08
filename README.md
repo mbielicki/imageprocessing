@@ -81,4 +81,7 @@ py imageprocessing.py --opening --input=data/lenabw.bmp --output=data/morphologi
 py imageprocessing.py --closing --input=data/lenabw.bmp --output=data/morphological/closing.bmp
 py imageprocessing.py --hmt --input=data/morphological/test.bmp --output=data/morphological/hmt.bmp
 py imageprocessing.py --hmt --input=data/lenabw.bmp --output=data/morphological/hmt.bmp
+
+py imageprocessing.py --m3 --input=data/morphological/test.bmp --output=data/morphological/m3.bmp --p=1,1
+py imageprocessing.py --m3 --input=data/lenabw.bmp --output=data/morphological/m3.bmp --p=300,170
 ```
