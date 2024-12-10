@@ -33,6 +33,12 @@ iii = StructuralElement(
              [1, 1, 1]]),
     center=(1, 1)
 )
+rd = StructuralElement(
+    np.array([[1, 1, 1],
+             [1, 1, 1],
+             [1, 1, 1]]),
+    center=(0, 0)
+)
 
 
 plus = StructuralElement(

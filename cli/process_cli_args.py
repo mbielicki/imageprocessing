@@ -11,6 +11,7 @@ from img_transformations.elementary import brightness, contrast, negative
 from img_transformations.geometric import hflip, dflip, resize, vflip
 from img_transformations.hpower import hpower
 from img_transformations.morphological import closing, dilation, erosion, hmt, m3, opening
+from img_transformations.region_growing import region_growing
 from img_transformations.transform_image import transform_image
 from img_transformations.noise_removal import gmean_filter, median_filter
 
@@ -126,6 +127,8 @@ def process_cli_args():
     
     elif command == '--m3':
         transform_image(args, m3)
+    elif command == '--regions':
+        transform_image(args, region_growing)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)

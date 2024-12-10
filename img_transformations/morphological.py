@@ -12,7 +12,7 @@ import structural_elements as se
 def dilation(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
     A = as_binary(arr)
-    B = se.iii
+    B = se.plus
     P = dilate(A, B)
 
     return as_bw(P)
@@ -20,7 +20,7 @@ def dilation(args: dict, arr: np.ndarray) -> np.ndarray:
 def erosion(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se'])
     A = as_binary(arr)
-    B = se.j
+    B = se.plus
 
     P = erode(A, B)
 
@@ -55,6 +55,7 @@ def sets_equal(A: np.ndarray, B: np.ndarray) -> bool:
     m = (A[:, None, :] == B).all(axis=2)
     return m.any(axis=1).all() and m.any(axis=0).all()
 
+@time_it
 def m3(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--se', '--p'])
     A = as_binary(arr)
