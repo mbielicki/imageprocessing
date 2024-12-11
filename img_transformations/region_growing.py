@@ -6,6 +6,12 @@ from constants import MAX_PIXEL_VALUE
 from utils import time_it
 import matplotlib.pyplot as plt
 
+class Region:
+    def __init__(self, seed: tuple, color: tuple):
+        self.seed = seed
+        self.color = color
+        self.filled = False
+
 @time_it
 def region_growing(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--threshold', '--seeds'])
@@ -13,24 +19,33 @@ def region_growing(args: dict, arr: np.ndarray) -> np.ndarray:
     height, width, colors = arr.shape
     seed_n = get_int_arg(args, '--seeds', default=2, range=(1, width * height))
 
-    seeds = choose_seeds(arr, seed_n)
+    regions = choose_seeds(arr, seed_n)
     map = np.zeros((height, width, 3), dtype=np.uint8)
 
-    for i, seed in enumerate(seeds):
-        similar = get_similar(seed, arr, threshold)
-        map = fill(map, seed, similar, get_color(i))
+    for region in regions:
+        if region.filled:
+            continue
+        similar = get_similar(region.seed, arr, threshold)
+        map = join_adjacent(map, similar, region, regions)
 
     return map
 
-def fill(map: np.ndarray, seed: tuple, similar: np.ndarray, c: np.ndarray):
+def join_adjacent(map: np.ndarray, similar: np.ndarray, region: Region, regions: list[Region]):
+    seed = region.seed
     stack = [seed]
     while stack:
         p = stack.pop()
-        map[p] = c
+        map[p] = region.color
         for pi in get_neighbors(p, map.shape[0:2]):
-            if similar[pi] and np.all(map[pi] == [0, 0, 0]): # if pi is seed, merge regions
-                stack.append(pi)
-
+            if similar[pi]:
+                if np.all(map[pi] == [0, 0, 0]): # if pi is seed, merge regions
+                    stack.append(pi)
+                else:
+                    for r in regions:
+                        if r.seed == pi:
+                            r.color = region.color
+                            r.filled = True
+    region.filled = True
     return map
 
 def get_neighbors(p, shape) -> np.ndarray:
@@ -52,15 +67,14 @@ def get_neighbors(p, shape) -> np.ndarray:
 def get_similar(s, arr, threshold):
     return np.all(((arr - threshold < arr[s]) & (arr[s] < arr + threshold)), axis=2)
 
-def choose_seeds(arr, seed_n) -> list:
+def choose_seeds(arr: np.ndarray, seed_n: int) -> list[Region]:
     height, width, colors = arr.shape
     ns = np.random.randint(0, height * width, seed_n)
     xs = ns % width
     ys = ns // width
-    return list(zip(xs, ys))
+    return [Region((ys[i], xs[i]), get_color(i)) for i in range(seed_n)]
 
-def get_color(i: int) -> np.ndarray:
-    colors = np.array([
+colors = np.array([
         [158, 1, 66],
         [213, 62, 79],
         [244, 109, 67],
@@ -73,4 +87,5 @@ def get_color(i: int) -> np.ndarray:
         [50, 136, 189],
         [94, 79, 162],
     ])
-    return colors[i % len(colors)]
+def get_color(i: int) -> np.ndarray:
+    return (colors[i % len(colors)] + i * 20) % MAX_PIXEL_VALUE
