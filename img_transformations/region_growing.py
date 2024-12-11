@@ -1,3 +1,4 @@
+import itertools
 from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_int_arg
 import numpy as np
@@ -7,35 +8,31 @@ from utils import time_it
 import matplotlib.pyplot as plt
 
 class Region:
-    def __init__(self, seed: tuple, color: tuple, arr: np.ndarray, map: np.ndarray, threshold: int):
+    def __init__(self, seed: tuple, color: tuple, arr: np.ndarray, map: np.ndarray, n_threshold: int, s_threshold: int):
         self.seed = seed
         self.color = color
         self.done = False
-        self.mean = arr[seed]
+        self.seed_val = arr[seed]
         self.size = 1
 
         self.map = map
         self.arr = arr
         self.regions = []
 
-        self.threshold = threshold
+        self.n_threshold = n_threshold
+        self.s_threshold = s_threshold
 
-        self.queue = [seed]
-    
-    def add_to_mean(self, v: np.ndarray):
-        self.size += 1
-        self.mean = self.mean + v / (self.size)
+        self.queue = [(seed, seed)]
     
     def grow(self):
         next_queue = []
         while self.queue:
-            p = self.queue.pop(0)
-            if self.is_similar(self.arr[p]):
+            p, initiator = self.queue.pop(0)
+            if self.is_similar(self.arr[p], self.arr[initiator]):
                 if self._is_0(p):
-                    self.add_to_mean(self.arr[p])
                     self.map[p] = self.color
                     for pi in get_neighbors(p, self.map.shape):
-                        next_queue.append(pi)
+                        next_queue.append((pi, p))
                 elif self._is_already_in(p):
                     continue
                 else: # is in other region
@@ -48,9 +45,10 @@ class Region:
         self.queue = next_queue
         return self.map
     
-    def is_similar(self, val) -> bool:
+    def is_similar(self, val, neighbor_val) -> bool:
         val = np.array(val)
-        if np.all(val - self.threshold < self.mean) and np.all(self.mean < val + self.threshold):
+        if np.all(val - self.n_threshold < neighbor_val) and np.all(neighbor_val < val + self.n_threshold) \
+            and np.all(val - self.s_threshold < self.seed_val) and np.all(self.seed_val < val + self.s_threshold):
             return True
 
     def _is_0(self, p):
@@ -65,33 +63,26 @@ class Region:
                 return r
             
     def merge(self, r: 'Region'):
-        self.mean = (self.mean * self.size + r.mean * r.size) / (self.size + r.size)
-        self.size += r.size
         r.done = True
+        self.queue += r.queue
         return np.where(self.map == r.color, self.color, self.map)
 
 @time_it
 def region_growing(args: dict, arr: np.ndarray) -> np.ndarray:
-    assert_only_allowed_args(args, ['--input', '--output', '--threshold', '--seeds'])
-    threshold = get_int_arg(args, '--threshold', default=10, range=(0, 255))
+    assert_only_allowed_args(args, ['--input', '--output', '--nthreshold', '--sthreshold', '--seeds'])
+    n_threshold = get_int_arg(args, '--nthreshold', default=MAX_PIXEL_VALUE, range=(0, MAX_PIXEL_VALUE))
+    s_threshold = get_int_arg(args, '--sthreshold', default=MAX_PIXEL_VALUE, range=(0, MAX_PIXEL_VALUE))
+
     height, width, colors = arr.shape
     seed_n = get_int_arg(args, '--seeds', default=2, range=(1, width * height))
 
     map = np.zeros((height, width, 3), dtype=np.uint8)
-    regions = choose_seeds(arr, seed_n, map, threshold)
+    regions = choose_seeds(arr, seed_n, map, n_threshold, s_threshold)
 
     for region in regions:
         region.regions = regions
         while not region.done:
             map = region.grow()
-
-
-    # while regions:
-    #     region = regions.pop(0)
-    #     map = region.grow()
-    #     if not region.done:
-    #         map = region.grow()
-    #         regions.append(region)
 
     return map
 
@@ -113,13 +104,21 @@ def get_neighbors(p, shape) -> np.ndarray:
     
 
 
-def choose_seeds(arr: np.ndarray, seed_n: int, map, threshold) -> list[Region]:
+def choose_seeds(arr: np.ndarray, seed_n: int, map, n_threshold, s_threshold) -> list[Region]:
     height, width, colors = arr.shape
-    ns = np.random.randint(0, height * width, seed_n)
-    xs = ns % width
-    ys = ns // width
-    return [Region((ys[i], xs[i]), get_color(i), arr, map, threshold) 
-            for i in range(seed_n)]
+
+    seed_n_y = int(np.sqrt(seed_n * width / height))
+    seed_n_x = seed_n // seed_n_y
+    space_y = height // seed_n_y
+    space_x = width // seed_n_x
+
+    xs = np.linspace(0, width - space_x - 1, seed_n_x, dtype=int) + space_x // 2
+    ys = np.linspace(0, height - space_y - 1, seed_n_y, dtype=int) + space_y // 2
+
+    points = itertools.product(ys, xs)
+
+    return [Region(p, get_color(i), arr, map, n_threshold, s_threshold) 
+            for i, p in enumerate(points)]
 
 colors = np.array([
         [158, 1, 66],
