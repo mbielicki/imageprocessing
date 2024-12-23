@@ -64,10 +64,14 @@ def m3(args: dict, arr: np.ndarray) -> np.ndarray:
     B = se.iii
     p = get_point_arg(args, '--p', default='0,0', range=((0, 0), shape))
     X = np.array([p])
-    
+
+    i = 0
     while True:
         dilated_X = dilate_set(X, B)
         Xk = dilated_X[points_in_set(dilated_X, Ai)]
+        if DEBUG_MODE: 
+            print(f'iteration {i}, size: {Xk.shape[0]} / {shape[0] * shape[1]}', end='\r')
+            i += 1
         if sets_equal(Xk, X): break
         X = Xk
 
