@@ -1,6 +1,6 @@
 import sys
 
-from fourier.dft import dft_and_back
+from fourier.dft import dft_and_back, fft_and_back
 from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
@@ -134,6 +134,8 @@ def process_cli_args():
     # Task 4
     elif command == '--dft':
         transform_image(args, dft_and_back)
+    elif command == '--fft':
+        transform_image(args, fft_and_back)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)
