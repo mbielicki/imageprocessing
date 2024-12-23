@@ -88,6 +88,6 @@ py imageprocessing.py --m3 --input=data/girlbw.bmp --output=data/morphological/m
 py imageprocessing.py --m3 --input=data/mandrilbw.bmp --output=data/morphological/m3.bmp --p=60,320
 py imageprocessing.py --m3 --input=data/boatbw.bmp --output=data/morphological/m3.bmp --p=280,500
 
-py imageprocessing.py --regions --input=data/mandrilbw.bmp --output=data/morphological/regions.bmp --threshold=10 --seeds=1
+py imageprocessing.py --regions --input=data/camera.bmp --output=data/morphological/regions.bmp --sthreshold=10 --seeds=100
 
 ```

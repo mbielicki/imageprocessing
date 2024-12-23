@@ -47,8 +47,16 @@ class Region:
     
     def is_similar(self, val, neighbor_val) -> bool:
         val = np.array(val)
-        if np.all(val - self.n_threshold < neighbor_val) and np.all(neighbor_val < val + self.n_threshold) \
-            and np.all(val - self.s_threshold < self.seed_val) and np.all(self.seed_val < val + self.s_threshold):
+        if self.n_threshold >= MAX_PIXEL_VALUE:
+            neighbor_is_similar = True
+        else:
+            neighbor_is_similar = np.all(val - self.n_threshold < neighbor_val) and np.all(neighbor_val < val + self.n_threshold)
+        if self.s_threshold >= MAX_PIXEL_VALUE:
+            seed_is_similar = True
+        else:
+            seed_is_similar = np.all(val - self.s_threshold < self.seed_val) and np.all(self.seed_val < val + self.s_threshold)
+
+        if neighbor_is_similar and seed_is_similar:
             return True
 
     def _is_0(self, p):
