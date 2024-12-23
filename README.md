@@ -91,3 +91,10 @@ py imageprocessing.py --m3 --input=data/boatbw.bmp --output=data/morphological/m
 py imageprocessing.py --regions --input=data/camera.bmp --output=data/morphological/regions.bmp --sthreshold=10 --seeds=100
 
 ```
+
+## Task 3
+
+```shell
+py imageprocessing.py --dft --input=data/fourier/test-dft.bmp --output=data/fourier/dft.bmp
+
+```
