@@ -43,7 +43,7 @@ def fft_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output'])
 
     x = arr.flatten().astype(np.complex64)
-    X = fft(x, x.shape[0], 1)
+    X = fft(x)
 
     plt.plot(np.abs(X))
     plt.xscale('log')
@@ -63,7 +63,8 @@ def log(k: int, indentation: int):
     last = new
     print(new)
 
-def fft(x: np.ndarray,  N: int, s: int = 1) -> np.ndarray:
+def fft(x: np.ndarray) -> np.ndarray:
+    N = x.shape[0]
     X = np.zeros(shape=N, dtype=np.complex64)  
 
     if N == 1:
@@ -72,16 +73,17 @@ def fft(x: np.ndarray,  N: int, s: int = 1) -> np.ndarray:
     
     indentation = int(6 - np.log2(N))
 
-    X[:N//2] = fft(x, N//2, 2*s)
-    X[N//2:] = fft(x+s, N//2, 2*s)
+    E = fft(x[0:N:2]) # even
+    O = fft(x[1:N:2]) # odd
 
     for k in range(N // 2):
         if N > 2: log(k, indentation)
 
-        p = X[k]
-        q = np.exp(2j * np.pi * k / N) * X[k + N//2]
+        p = E[k]
+        q = np.exp(2j * np.pi * k / N) * O[k]
 
         X[k] = p + q
         X[k + N//2] = p - q    
 
     return X
+
