@@ -8,6 +8,9 @@ def get_min_max_args(args, min_arg_name, max_arg_name, range=None, default=None)
         if not in_range(default[0], range) or not in_range(default[1], range):
             raise ValueError(f"Default values for {min_arg_name} and {max_arg_name} are out of range.")
     
+    if default is None:
+        default = None, None
+        
     min_arg = get_int_arg(args, min_arg_name, range=range, default=default[0])
     max_arg = get_int_arg(args, max_arg_name, range=range, default=default[1])
 

@@ -1,9 +1,46 @@
 import numpy as np
 from PIL import Image
 from cli.allowed_args import assert_only_allowed_args
-from cli.get_arg import get_int_arg
+from cli.get_arg import get_int_arg, get_min_max_args
 from constants import MAX_PIXEL_VALUE
 from fourier.fft2d import fft2d, ifft2d, swap_quarters
+
+def band_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
+    assert_only_allowed_args(args, ['--input', '--output', '--band-min', '--band-max'])
+    band_min, band_max = get_min_max_args(args, '--band-min', '--band-max')
+
+    x = arr[:, :, 0]
+    X = fft2d(x)
+
+    X = swap_quarters(X)
+    M, N = X.shape
+    
+    dc = X[M//2, N//2]
+
+    X[:M//2-band_max] = 0
+    X[M//2+band_max:] = 0
+    X[:, :N//2-band_max] = 0
+    X[:, N//2+band_max:] = 0
+    
+    X[M//2-band_min:M//2+band_min, N//2-band_min:N//2+band_min] = 0
+
+    X[M//2, N//2] = dc
+
+    fourier_imgs(X, output_file=args['--output'])
+    
+    X = swap_quarters(X)
+
+    new_x = ifft2d(X)
+
+    return complex_to_img(new_x)
+
+def complex_to_img(x: np.ndarray) -> np.ndarray:
+    new_x = x.real
+    new_x = np.where(new_x < 0, 0, new_x)
+    new_x = np.where(new_x > MAX_PIXEL_VALUE, MAX_PIXEL_VALUE, new_x)
+    new_x = new_x.astype(np.uint8)
+
+    return new_x[:, :, None]
 
 
 def low_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
@@ -11,12 +48,12 @@ def low_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
 
     band = get_int_arg(args, '--band')
 
-
     x = arr[:, :, 0]
     X = fft2d(x)
 
     X = swap_quarters(X)
     M, N = X.shape
+
     X[:M//2-band] = 0
     X[M//2+band:] = 0
     X[:, :N//2-band] = 0
@@ -27,10 +64,7 @@ def low_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     X = swap_quarters(X)
 
     new_x = ifft2d(X)
-    new_x = new_x.real
-    new_x = new_x.astype(np.uint8)
-
-    return new_x[:, :, None]
+    return complex_to_img(new_x)
 
 
 def high_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
@@ -54,10 +88,7 @@ def high_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     X = swap_quarters(X)
 
     new_x = ifft2d(X)
-    new_x = new_x.real
-    new_x = new_x.astype(np.uint8)
-
-    return new_x[:, :, None]
+    return complex_to_img(new_x)
 
 
 def fourier_imgs(X: np.ndarray, output_file: str) -> None:
