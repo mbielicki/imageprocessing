@@ -98,4 +98,5 @@ py imageprocessing.py --regions --input=data/camera.bmp --output=data/morphologi
 py imageprocessing.py --dft-test --input=data/fourier/test-dft.bmp --output=data/fourier/dft.bmp
 py imageprocessing.py --fft-test --input=data/fourier/test-dft.bmp --output=data/fourier/fft.bmp
 py imageprocessing.py --fft --input=data/fourier/test-dft.bmp --output=data/fourier/fft.bmp
+py imageprocessing.py --low-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band=10
 ```

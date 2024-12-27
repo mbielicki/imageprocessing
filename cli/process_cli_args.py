@@ -6,6 +6,7 @@ from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
+from fourier.filters import low_pass_filter
 from histogram import draw_histogram
 from img_analysis.characteristics import casyco, centropy, cflatco, cmean, cstdev, cvarcoi, cvarcoii, cvariance
 from img_transformations.convolution import edge_sharpening, orosenfeld
@@ -139,6 +140,8 @@ def process_cli_args():
         transform_image(args, fft2d_and_back)
     elif command == '--fft':
         transform_image(args, fft_img)
+    elif command == '--low-pass':
+        transform_image(args, low_pass_filter)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)
