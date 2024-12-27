@@ -32,6 +32,34 @@ def low_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
 
     return new_x[:, :, None]
 
+
+def high_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
+    assert_only_allowed_args(args, ['--input', '--output', '--band'])
+
+    band = get_int_arg(args, '--band')
+
+    x = arr[:, :, 0]
+    X = fft2d(x)
+
+    X = swap_quarters(X)
+    M, N = X.shape
+    dc = X[M//2, N//2]
+
+    X[M//2-band:M//2+band, N//2-band:N//2+band] = 0
+
+    X[M//2, N//2] = dc
+
+    fourier_imgs(X, output_file=args['--output'])
+
+    X = swap_quarters(X)
+
+    new_x = ifft2d(X)
+    new_x = new_x.real
+    new_x = new_x.astype(np.uint8)
+
+    return new_x[:, :, None]
+
+
 def fourier_imgs(X: np.ndarray, output_file: str) -> None:
     mags = np.abs(X)
     mags = np.log10(mags, where=mags>0)
