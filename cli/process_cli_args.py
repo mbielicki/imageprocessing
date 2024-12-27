@@ -1,6 +1,7 @@
 import sys
 
-from fourier.dft import dft_and_back, fft_and_back
+from fourier.dft import dft_and_back
+from fourier.fft import fft_and_back
 from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
