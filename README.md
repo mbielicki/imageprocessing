@@ -101,4 +101,5 @@ py imageprocessing.py --fft --input=data/fourier/test-dft.bmp --output=data/four
 py imageprocessing.py --low-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band=16
 py imageprocessing.py --high-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band=16
 py imageprocessing.py --band-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band-min=8 --band-max=128
+py imageprocessing.py --band-cut --input=data/lena.bmp --output=data/fourier/lena.bmp --band-min=32 --band-max=128
 ```

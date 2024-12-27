@@ -6,7 +6,7 @@ from exceptions import ArgumentError, UnknownArgumentError
 from cli.args_to_dict import args_to_dict
 from cli.help_message import help_message
 
-from fourier.filters import band_pass_filter, high_pass_filter, low_pass_filter
+from fourier.filters import band_cut_filter, band_pass_filter, high_pass_filter, low_pass_filter
 from histogram import draw_histogram
 from img_analysis.characteristics import casyco, centropy, cflatco, cmean, cstdev, cvarcoi, cvarcoii, cvariance
 from img_transformations.convolution import edge_sharpening, orosenfeld
@@ -146,6 +146,8 @@ def process_cli_args():
         transform_image(args, high_pass_filter)
     elif command == '--band-pass':
         transform_image(args, band_pass_filter)
+    elif command == '--band-cut':
+        transform_image(args, band_cut_filter)
     
     else:
         raise UnknownArgumentError("Unknown command: " + command)
