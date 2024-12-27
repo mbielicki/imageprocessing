@@ -13,8 +13,6 @@ def dft_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
 
     return new_x.reshape(arr.shape)
 
-
-@time_it
 def dft(x: np.ndarray) -> np.ndarray:
     N = x.shape[0]
     X = np.zeros(x.shape, dtype=np.complex64)  
