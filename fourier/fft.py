@@ -1,9 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from cli.allowed_args import assert_only_allowed_args
-from utils import time_it
 
-@time_it
 def fft_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output'])
 
@@ -15,7 +13,6 @@ def fft_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
     new_x = new_x.astype(np.uint8)
 
     return new_x.reshape(arr.shape)
-
 
 def fft(x: np.ndarray) -> np.ndarray:
     N = x.shape[0]
@@ -51,7 +48,7 @@ def ifft_sum(X: np.ndarray) -> np.ndarray:
     O = ifft_sum(X[1:N:2]) # odd
 
     x = np.zeros(shape=N, dtype=np.complex64)  
-    
+
     for k in range(N // 2):
         p = E[k]
         q = np.exp(2j * np.pi * k / N) * O[k]
