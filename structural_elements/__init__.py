@@ -69,3 +69,9 @@ j = StructuralElement(
     center=(2, 1)
 )
 
+reversed_L = StructuralElement(
+    np.array([[1, 1, 0],
+              [0, 1, 0],
+              [0, 1, 0]]),
+    center=(1, 1)
+)
