@@ -4,7 +4,7 @@ from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_int_arg, get_min_max_args
 from constants import MAX_PIXEL_VALUE
 from fourier.fft2d import fft2d, ifft2d, swap_quarters
-from fourier.utils import circle_mask
+from fourier.utils import circle_mask, complex_to_img
 
 
 def band_cut_filter(args: dict, arr: np.ndarray) -> np.ndarray:
@@ -60,14 +60,6 @@ def band_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     new_x = ifft2d(X)
 
     return complex_to_img(new_x)
-
-def complex_to_img(x: np.ndarray) -> np.ndarray:
-    new_x = x.real
-    new_x = np.where(new_x < 0, 0, new_x)
-    new_x = np.where(new_x > MAX_PIXEL_VALUE, MAX_PIXEL_VALUE, new_x)
-    new_x = new_x.astype(np.uint8)
-
-    return new_x[:, :, None]
 
 
 def low_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
