@@ -17,11 +17,7 @@ def band_cut_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     X = swap_quarters(X)
     M, N = X.shape
     
-    mask = np.ones(shape=(M, N), dtype=bool)
-
-    mask[M//2-band_max:M//2+band_max, N//2-band_max:N//2+band_max] = False
-    mask[M//2-band_min:M//2+band_min, N//2-band_min:N//2+band_min] = True
-
+    mask = ~circle_mask((M, N), band_max) | circle_mask((M, N), band_min)
     X = X * mask
 
     fourier_imgs(X, output_file=args['--output'])
@@ -44,12 +40,8 @@ def band_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     
     dc = X[M//2, N//2]
 
-    X[:M//2-band_max] = 0
-    X[M//2+band_max:] = 0
-    X[:, :N//2-band_max] = 0
-    X[:, N//2+band_max:] = 0
-    
-    X[M//2-band_min:M//2+band_min, N//2-band_min:N//2+band_min] = 0
+    mask = circle_mask((M, N), band_max) * ~circle_mask((M, N), band_min)
+    X = X * mask
 
     X[M//2, N//2] = dc
 
