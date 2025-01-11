@@ -1,5 +1,7 @@
 import numpy as np
 
+from constants import MAX_PIXEL_VALUE
+
 
 def complex_to_img(x: np.ndarray) -> np.ndarray:
     new_x = x.real

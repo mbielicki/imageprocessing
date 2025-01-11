@@ -96,7 +96,9 @@ def high_pass_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     M, N = X.shape
     dc = X[M//2, N//2]
 
-    X[M//2-band:M//2+band, N//2-band:N//2+band] = 0
+
+    mask = ~circle_mask((M, N), band)
+    X = X * mask
 
     X[M//2, N//2] = dc
 
