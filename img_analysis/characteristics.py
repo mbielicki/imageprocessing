@@ -18,7 +18,7 @@ def calculate_mean(arr: np.ndarray) -> float:
 
 def cmean(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     mean = calculate_mean(arr)
 
@@ -39,7 +39,7 @@ def calculate_variance(arr: np.ndarray) -> float:
 
 def cvariance(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     variance = calculate_variance(arr)
 
@@ -50,7 +50,7 @@ def calculate_stdev(arr: np.ndarray) -> float:
 
 def cstdev(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     stdev = calculate_stdev(arr)
 
@@ -58,7 +58,7 @@ def cstdev(args: dict, arr: np.ndarray) -> str:
 
 def cvarcoi(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     varcoi = calculate_stdev(arr) / calculate_mean(arr)
 
@@ -66,7 +66,7 @@ def cvarcoi(args: dict, arr: np.ndarray) -> str:
 
 def casyco(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     width = arr.shape[1]
     height = arr.shape[0]
@@ -86,7 +86,7 @@ def casyco(args: dict, arr: np.ndarray) -> str:
 
 def cflatco(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     width = arr.shape[1]
     height = arr.shape[0]
@@ -105,7 +105,7 @@ def cflatco(args: dict, arr: np.ndarray) -> str:
 
 def cvarcoii(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
 
     width = arr.shape[1]
     height = arr.shape[0]
@@ -120,7 +120,7 @@ def cvarcoii(args: dict, arr: np.ndarray) -> str:
 
 def centropy(args: dict, arr: np.ndarray) -> str:
     assert_only_allowed_args(args, ['--input'])
-    arr = to_grayscale(args, arr)
+    arr = to_grayscale(arr)
     
     width = arr.shape[1]
     height = arr.shape[0]

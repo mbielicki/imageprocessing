@@ -14,7 +14,7 @@ def extract_one_channel(args, arr):
 
     return arr[:, :, channel]
 
-def to_grayscale(args, arr):
+def to_grayscale(arr):
     width = arr.shape[1]
     height = arr.shape[0]
     colors = arr.shape[2]

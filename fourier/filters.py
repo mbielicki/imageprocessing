@@ -37,7 +37,7 @@ def phase_filter(args: dict, arr: np.ndarray) -> np.ndarray:
 def any_filter(args: dict, arr: np.ndarray) -> np.ndarray:
     assert_only_allowed_args(args, ['--input', '--output', '--mask'])
 
-    x = to_grayscale(args, arr)[:, :, 0]
+    x = to_grayscale(arr)[:, :, 0]
     X = fft2d(x)
 
     X = swap_quarters(X)
