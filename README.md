@@ -98,8 +98,13 @@ py imageprocessing.py --regions --input=data/camera.bmp --output=data/morphologi
 py imageprocessing.py --dft-test --input=data/fourier/test-dft.bmp --output=data/fourier/dft.bmp
 py imageprocessing.py --fft-test --input=data/fourier/test-dft.bmp --output=data/fourier/fft.bmp
 py imageprocessing.py --fft --input=data/fourier/test-dft.bmp --output=data/fourier/fft.bmp
+
 py imageprocessing.py --low-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band=16
 py imageprocessing.py --high-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band=16
 py imageprocessing.py --band-pass --input=data/lena.bmp --output=data/fourier/lena.bmp --band-min=8 --band-max=128
 py imageprocessing.py --band-cut --input=data/lena.bmp --output=data/fourier/lena.bmp --band-min=32 --band-max=128
+
+py imageprocessing.py --filter --input=data/fourier/f5/F5test1.png --mask=data/fourier/f5/F5mask1.png --output=data/fourier/f5/F5test1-filtered.bmp
+py imageprocessing.py --filter --input=data/fourier/f5/F5test2.png --mask=data/fourier/f5/F5mask2.png --output=data/fourier/f5/F5test2-filtered.bmp
+
 ```

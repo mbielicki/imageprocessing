@@ -2,7 +2,34 @@ import numpy as np
 from PIL import Image
 
 from constants import MAX_PIXEL_VALUE
+from img_file_to_arr import img_file_to_arr
+from img_transformations.colors import as_binary
 
+def load_mask(file_path: str, shape: tuple) -> np.ndarray:
+    mask = img_file_to_arr(file_path)
+    mask = as_binary(mask)
+    mask = resize(mask, shape)
+    return mask
+
+def resize(arr: np.ndarray, new_size: tuple) -> np.ndarray:
+    if arr.shape == new_size:
+        return arr
+    
+    height, width = arr.shape
+    new_height, new_width = new_size
+
+    new_arr = np.zeros((new_height, new_width), dtype=arr.dtype)
+
+    for y in range(new_height):
+        for x in range(new_width):
+            x_as_old_size = x / (new_width - 1) * (width - 1)
+            x_as_old_size = round(x_as_old_size)
+            y_as_old_size = y / (new_height - 1) * (height - 1)
+            y_as_old_size = round(y_as_old_size)
+
+            new_arr[y, x] = arr[y_as_old_size, x_as_old_size]
+
+    return new_arr
 
 def complex_to_img(x: np.ndarray) -> np.ndarray:
     new_x = x.real
