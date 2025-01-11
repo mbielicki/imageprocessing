@@ -106,5 +106,4 @@ py imageprocessing.py --band-cut --input=data/lena.bmp --output=data/fourier/len
 
 py imageprocessing.py --filter --input=data/fourier/f5/F5test1.png --mask=data/fourier/f5/F5mask1.png --output=data/fourier/f5/F5test1-filtered.bmp
 py imageprocessing.py --filter --input=data/fourier/f5/F5test3.png --mask=data/fourier/f5/F5mask2.png --output=data/fourier/f5/F5test3-filtered.bmp
-
 ```
