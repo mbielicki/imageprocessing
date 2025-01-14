@@ -1,8 +1,8 @@
 import numpy as np
 from cli.allowed_args import assert_only_allowed_args
 from cli.get_arg import get_int_arg, get_min_max_args
-from fourier.fft2d import fft2d, ifft2d, swap_quarters
-from fourier.utils import circle_mask, complex_to_img, fourier_imgs, load_mask
+from fourier.fft2d import fft2d, ifft2d
+from fourier.utils import circle_mask, complex_to_img, fourier_imgs, load_mask, swap_quarters
 from img_transformations.colors import to_grayscale
 
 def phase_filter(args: dict, arr: np.ndarray) -> np.ndarray:

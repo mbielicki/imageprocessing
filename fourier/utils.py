@@ -64,3 +64,20 @@ def fourier_imgs(X: np.ndarray, output_file: str) -> None:
     phases = np.angle(X)
     phases = (phases + np.pi) / (2 * np.pi) * MAX_PIXEL_VALUE
     Image.fromarray(phases.astype(np.uint8)).save(output_file[:-4] + '-phase.bmp')
+
+    
+def swap_quarters(img: np.ndarray) -> np.ndarray:
+    M, N = img.shape
+    new_img = np.zeros(img.shape, dtype=img.dtype)
+
+    top_left = img[:M//2, :N//2]
+    top_right = img[:M//2, N//2:]
+    bottom_left = img[M//2:, :N//2]
+    bottom_right = img[M//2:, N//2:]
+
+    new_img[:M//2, :N//2] = bottom_right
+    new_img[:M//2, N//2:] = bottom_left
+    new_img[M//2:, :N//2] = top_right
+    new_img[M//2:, N//2:] = top_left
+
+    return new_img

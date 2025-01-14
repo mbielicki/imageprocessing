@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
 
 from cli.allowed_args import assert_only_allowed_args
 from constants import DEBUG_MODE, MAX_PIXEL_VALUE
+from fourier.utils import fourier_imgs, swap_quarters
 from utils import time_it
 
 from fourier.fft import fft, ifft
@@ -15,6 +15,10 @@ def fft2d_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
     x = arr
     X = fft2d(x)
 
+    X = swap_quarters(X)
+    fourier_imgs(X, output_file=args['--output'])
+    X = swap_quarters(X)
+    
     new_x = ifft2d(X)
     new_x = new_x.real
     new_x = new_x.astype(np.uint8)
@@ -71,19 +75,3 @@ def ifft2d(X: np.ndarray) -> np.ndarray:
         x[:, n] = ifft(x[:, n])
 
     return x
-
-def swap_quarters(img: np.ndarray) -> np.ndarray:
-    M, N = img.shape
-    new_img = np.zeros(img.shape, dtype=img.dtype)
-
-    top_left = img[:M//2, :N//2]
-    top_right = img[:M//2, N//2:]
-    bottom_left = img[M//2:, :N//2]
-    bottom_right = img[M//2:, N//2:]
-
-    new_img[:M//2, :N//2] = bottom_right
-    new_img[:M//2, N//2:] = bottom_left
-    new_img[M//2:, :N//2] = top_right
-    new_img[M//2:, N//2:] = top_left
-
-    return new_img

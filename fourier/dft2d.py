@@ -1,6 +1,8 @@
 import numpy as np
 
 from cli.allowed_args import assert_only_allowed_args
+from fourier.utils import swap_quarters
+from fourier.utils import fourier_imgs
 from utils import time_it
 
 from fourier.dft import dft, idft
@@ -12,6 +14,10 @@ def dft2d_and_back(args: dict, arr: np.ndarray) -> np.ndarray:
 
     x = arr[:, :, 0]
     X = dft2d(x)
+    
+    X = swap_quarters(X)
+    fourier_imgs(X, output_file=args['--output'])
+    X = swap_quarters(X)
 
     new_x = idft2d(X)
     new_x = new_x.real
